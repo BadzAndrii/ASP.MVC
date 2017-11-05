@@ -7,9 +7,11 @@
 
 <h2>List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div>
+    <form method="post" action="/books/create">
+            <button>Add NEW Book</button>
+        </form>
+</div>
 <table class="table">
     <tr>
         <th>

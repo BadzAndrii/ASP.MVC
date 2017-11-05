@@ -116,6 +116,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Sage.cs" />
+    <Compile Include="Entities\SageBooks.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

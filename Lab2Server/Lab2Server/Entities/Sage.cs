@@ -17,6 +17,6 @@ namespace Lab2Server
 
         public byte[] Photo { get; set; }
 
-        public virtual ICollection<Book> Book { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

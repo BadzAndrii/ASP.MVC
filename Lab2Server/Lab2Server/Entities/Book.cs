@@ -17,6 +17,6 @@ namespace Lab2Server
 
         public byte[] Photo { get; set; }
 
-        public virtual ICollection<Sage> Sage { get; set; }
+        public virtual ICollection<Sage> Sages { get; set; }
     }
 }
