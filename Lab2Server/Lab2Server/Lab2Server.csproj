@@ -121,6 +121,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\ListBookModels.cs" />
     <Compile Include="Models\SageListModel.cs" />
     <Compile Include="Models\SageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
