@@ -16,7 +16,7 @@ namespace Lab2Server.Controllers
         public ActionResult List()
         {
             var model = new List<BookModel>();
-            dataContext.Books.Select<B>
+            //dataContext.Books.Select<B>
             return View(model);
         }
     }
