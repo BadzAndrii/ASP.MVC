@@ -1,0 +1,20 @@
+﻿@model Dictionary<string, string>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Home</h2>
+<div>
+    <ul>
+        @foreach (var action in Model)
+        {
+            
+            <li><a href="@action.Value">@action.Key</a></li>
+        }
+    </ul>
+    @*<form method="post" action="/Home/Detalis">
+        <button>GO TO DETAILS!</button>
+    </form>*@
+</div>
+
