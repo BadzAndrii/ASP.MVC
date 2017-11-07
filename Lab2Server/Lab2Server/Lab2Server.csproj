@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Book.cs" />
@@ -122,6 +123,7 @@
     </Compile>
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ListBookModels.cs" />
+    <Compile Include="Models\ListSageModels.cs" />
     <Compile Include="Models\SageListModel.cs" />
     <Compile Include="Models\SageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +141,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Books\List.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Authors\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,12 +1,22 @@
 ﻿<!DOCTYPE html>
 
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div style="background-color:aquamarine"><h4>!!!I AM THE HEADER!!!</h4></div>
+    <div style="background-color:aquamarine"><h4>!!!I AM THE HEADER!!!</h4>
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.ActionLink("Home", "/Home")              
+                </td>
+            </tr>
+            </table>
+
+</div>
     <div>
         @RenderBody()
     </div>
