@@ -1,0 +1,25 @@
+﻿@model Lab2Server.Models.UserModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login (as admin) or proceed @Html.ActionLink("as user","List","Books")</h2>
+
+<div>
+    @using (Html.BeginForm("Login", "Users", FormMethod.Post))
+    {
+        <p>
+            @Html.LabelFor(l => l.Email)
+            @Html.EditorFor(l => l.Email)
+            @Html.ValidationMessageFor( l=>l.Email)
+        </p>
+        <p>
+            @Html.LabelFor(l => l.Password)
+            @Html.EditorFor(l => l.Password)
+            @Html.ValidationMessageFor(l => l.Password)
+        </p>
+        <button>Login</button>
+    }
+</div>

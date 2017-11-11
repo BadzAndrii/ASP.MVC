@@ -1,22 +1,49 @@
 ﻿<!DOCTYPE html>
-
-
 <html>
 <head>
+    
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 </head>
 <body>
-    <div style="background-color:aquamarine"><h4>!!!I AM THE HEADER!!!</h4>
-        <table class="table">
-            <tr>
-                <td>
-                    @Html.ActionLink("Home", "/Home")              
-                </td>
-            </tr>
-            </table>
 
+    <div style="width:auto; background-color:aqua">
+        @if (Request.IsAuthenticated)
+        {
+            <strong>@Html.Encode(User.Identity.Name)</strong>
+            @Html.ActionLink("Log Out", "LogOut", "Users")
+        }
+        else
+        {
+            @*@Html.ActionLink("Register", "Register", "Users")*@
+            <span> | </span>
+            @Html.ActionLink("Log In", "Login", "Users")
+        }
+    </div>
+
+    <div style="background-color:aquamarine"><h4>!!!I AM THE HEADER!!!</h4>
+    @if(User.Identity.IsAuthenticated)
+    {
+    <ul>
+            @{
+                var linkMenu = new[] 
+                {
+                        new {Text = "Books",Action = "AdminList",Route = "Books"},
+                        new {Text = "Authors",Action = "List", Route = "Authors"}
+                };
+              }
+            @foreach (var item in linkMenu)
+            {
+                <li>@Html.ActionLink(item.Text,item.Action,item.Route)</li>
+            }
+        </ul>
+      }
 </div>
+
+    
     <div>
         @RenderBody()
     </div>

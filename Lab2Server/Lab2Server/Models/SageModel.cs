@@ -12,6 +12,6 @@ namespace Lab2Server.Models
         public string Name { get; set; }
         public string City { get; set; }
         public int Age { get; set; }
-        public string Photo { get; set; }
+        public byte[] Photo { get; set; }
     }
 }

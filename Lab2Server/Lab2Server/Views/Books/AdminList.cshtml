@@ -1,0 +1,37 @@
+﻿@using Lab2Server.Models
+@model ListBookModels
+@{
+    ViewBag.Title = "AdminList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>AdminList</h2>
+    <div>
+        @using (Html.BeginForm("Create", "Books", FormMethod.Post))
+        {
+            <p>
+                @Html.LabelFor(m => m.Name)
+                @Html.EditorFor(m => m.Name)
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Year)
+                @Html.EditorFor(m => m.Year)
+            </p>
+            <p>
+
+                @Html.LabelFor(m => m.Authors)
+                <select multiple="multiple" name="Authors">
+                    @foreach (var author in Model.ListAuthors)
+                    {
+                        <option value="@author.Key">@author.Value</option>
+                    }
+                </select>
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Description)
+                @Html.EditorFor(m => m.Description)
+            </p>
+            <button>Add Book</button>
+        }
+    </div>
+
+@Html.Partial("_ListOfBooks", Model.Books)

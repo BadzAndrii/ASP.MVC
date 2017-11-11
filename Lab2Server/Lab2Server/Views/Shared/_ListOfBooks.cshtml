@@ -1,0 +1,59 @@
+﻿@using Lab2Server.Models
+@model List<BookModel>
+
+<h2>List</h2>
+@if(Model.Any())
+{ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Authors)
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Authors)
+            </td>
+
+            <td>
+                @Html.ActionLink("View", "View", new { id = item.Id })
+            </td>
+     @if (User.Identity.IsAuthenticated)
+     {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+      }
+
+        </tr>
+    }
+
+</table>
+}

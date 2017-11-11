@@ -2,9 +2,11 @@
 using System.Web.Mvc;
 using Lab2Server.Models;
 using System.Data.Entity;
+using System.Web;
 
 namespace Lab2Server.Controllers
 {
+    [Authorize]
     public class AuthorsController : Controller
     {
         private readonly DataContext dataContext = new DataContext();
@@ -25,9 +27,17 @@ namespace Lab2Server.Controllers
             return View(model);
         }
 
+        //Add image
+        //public ActionResult AddImage()
+        //{
+        //    SageModel b1 = new SageModel();
+        //    return View(b1);
+        //}
+        //End
         [HttpPost]
         public ActionResult Create(ListSageModels model)
         {
+            //model.Photo= new byte[image1.ContentLength];
             var newSage = new Sage { Name = model.Name, Age = model.Age, City = model.City };
 
             dataContext.Sages.Add(newSage);

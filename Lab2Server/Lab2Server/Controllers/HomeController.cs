@@ -16,7 +16,8 @@ namespace Lab2Server.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View(_menu);
+            return Redirect("Users/Login");
+            //return View(_menu);
         }
 
         //[HttpPost]
