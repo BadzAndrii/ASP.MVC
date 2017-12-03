@@ -12,12 +12,12 @@ namespace Lab2Server.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly DataContext dataContext = new DataContext();
         // GET: User
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(UserModel model)
         {

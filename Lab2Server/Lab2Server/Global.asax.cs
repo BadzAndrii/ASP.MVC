@@ -7,6 +7,11 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using SimpleInjector;
+using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
+using System.Reflection;
+using Lab2Server.Repositories;
 
 namespace Lab2Server
 {
@@ -16,7 +21,23 @@ namespace Lab2Server
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // Create the container as usual.
+            var container = new Container();
+                container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+
+            // Register your types, for instance:
+            container.Register<IRepository<BookModel, ListBookModels>, BooksRepository>();
+
+            // This is an extension method from the integration package.
+            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+
+#if DEBUG
+            container.Verify();
+#endif
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
+
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
             HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];

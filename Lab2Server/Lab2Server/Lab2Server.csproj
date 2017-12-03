@@ -128,11 +128,11 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Sage.cs" />
-    <Compile Include="Entities\SageBooks.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\BookMapper.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ListBookModels.cs" />
     <Compile Include="Models\ListSageModels.cs" />
@@ -140,12 +140,14 @@
     <Compile Include="Models\SageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BooksRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="SageContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SageContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SageContext.cs" />
+    <Compile Include="DataContext.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +161,8 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Books\AdminList.cshtml" />
     <Content Include="Views\Shared\_ListOfBooks.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Books\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Lab2Server
 {
     [Table("Sages")]
-    class Sage
+    public class Sage
     {
         public int Id { get; set; }
         public string Name { get; set; }
