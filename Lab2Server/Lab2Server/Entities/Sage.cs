@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Lab2Server
+namespace Lab2Server.Entities
 {
     [Table("Sages")]
-    public class Sage
+    public class Sage: KeyEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
         public int Age { get; set; }

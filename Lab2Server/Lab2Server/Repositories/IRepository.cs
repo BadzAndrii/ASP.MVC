@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Lab2Server.Repositories
 {
-   public interface IRepository<TModel, TListModel> where TModel : class, new() where TListModel : class, new()
+    public interface IRepository<TEntity> where TEntity : class, new()
     {
-        TModel Get(int id);
-
-        List<TModel> GetList();
-        TListModel GetAdminList();
-
-        void Save(TListModel entity);
+        TEntity Get(int id);
+        List<TEntity> List(int page, int count);
+        void Save(TEntity entity);
         void Delete(int id);
     }
 }

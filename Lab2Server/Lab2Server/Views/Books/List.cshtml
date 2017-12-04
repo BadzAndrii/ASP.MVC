@@ -1,10 +1,10 @@
-﻿@using Lab2Server.Models
-
-@model List<BookModel>
+﻿@model IEnumerable<Lab2Server.Models.BookModel>
 
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("_ListOfBooks", Model)
+<h2>List of Books</h2>
+
+@Html.Partial("_ListOfBooks", Model.Books)

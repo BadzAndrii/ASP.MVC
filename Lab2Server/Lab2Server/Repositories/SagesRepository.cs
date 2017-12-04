@@ -1,42 +1,19 @@
-﻿using Lab2Server.Models;
-using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Lab2Server.Entities;
 
 namespace Lab2Server.Repositories
 {
-    public class SagesRepository : IRepository<SageModel, ListSageModels>
+    public class SagesRepository : BaseRepository<Sage>, ISageRepository
     {
-        private readonly DataContext<Sage> _sageDataContext = new DataContext<Sage>();
-        public void Delete(int id)
+        public List<Sage> Get(params int[] ids)
         {
-            throw new NotImplementedException();
+            return _context.Data.Where(s => ids.Contains(s.Id)).ToList();
         }
 
-        private Sage GetEntity(int id)
+        public IDictionary<int, string> GetAuthorsDictionary()
         {
-            return _sageDataContext.Data.FirstOrDefault(x => x.Id == id);
-        }
-
-        public SageModel Get(int id)
-        {
-            return GetEntity(id).MapToSageModel();
-        }
-
-        public ListSageModels GetAdminList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<SageModel> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(ListSageModels entity)
-        {
-            throw new NotImplementedException();
+            return _context.Data.Select(s => new { s.Id, s.Name }).ToDictionary(k => k.Id, v => v.Name);
         }
     }
 }
