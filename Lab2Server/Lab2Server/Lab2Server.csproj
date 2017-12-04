@@ -133,6 +133,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappers\BookMapper.cs" />
+    <Compile Include="Mappers\SageMapper.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\ListBookModels.cs" />
     <Compile Include="Models\ListSageModels.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BooksRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\SagesRepository.cs" />
     <Compile Include="SageContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

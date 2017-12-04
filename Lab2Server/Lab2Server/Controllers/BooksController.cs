@@ -48,11 +48,11 @@ namespace Lab2Server.Controllers
             return View(_booksRepository.Get(id));
         }
 
-        [Authorize, HttpPost]
-        public ActionResult Edit(BookModel model)
-        {
-            _booksRepository.Save(model);
-            return Redirect("AdminList");
-        }
+        //[Authorize, HttpPost]
+        //public ActionResult Edit(BookModel model)
+        //{
+        //    _booksRepository.Save(model);
+        //    return Redirect("AdminList");
+        //}
     }
 }
