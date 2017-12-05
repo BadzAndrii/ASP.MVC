@@ -12,6 +12,7 @@ using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using System.Reflection;
 using Lab2Server.Repositories;
+using Lab2Server.Entities;
 
 namespace Lab2Server
 {
@@ -27,7 +28,8 @@ namespace Lab2Server
                 container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
             // Register your types, for instance:
-            container.Register<IRepository<BookModel, ListBookModels>, BooksRepository>();
+            //container.Register<IRepository<BookModel, ListBookModels>, BooksRepository>();
+            container.Register<IRepository<Book>, BooksRepository>();
 
             // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
