@@ -16,14 +16,12 @@ namespace Lab2Server.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return Redirect("Users/Login");
-            //return View(_menu);
-        }
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(_menu);
+            }
 
-        //[HttpPost]
-        //public ActionResult Detalis()
-        //{
-        //    return View("Index", _menu);
-        //}
+            return Redirect("Users/Login");
+        }
     }
 }
