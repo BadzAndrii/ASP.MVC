@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Web;
+﻿using System.Security.Principal;
 
 namespace Lab2Server
 {
     public class AdminPrincipal : IPrincipal
     {
         public IIdentity Identity { get; private set; }
+
         public AdminPrincipal ( string email )
         {
             Identity = new GenericIdentity(email);
@@ -18,7 +15,5 @@ namespace Lab2Server
         {
             return true;
         }
-
-
     }
 }
