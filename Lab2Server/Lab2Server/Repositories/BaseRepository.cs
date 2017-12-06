@@ -15,7 +15,7 @@ namespace Lab2Server.Repositories
 
         public List<TEntity> List(int page, int count)
         {
-            return _context.Data.Skip(page * count).Take(count).ToList();
+            return _context.Data.OrderBy(e => e.Id).Skip(page * count).Take(count).ToList();
         }
 
         public void Save(TEntity entity)

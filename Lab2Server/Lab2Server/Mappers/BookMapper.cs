@@ -50,7 +50,7 @@ namespace Lab2Server.Mappers
                 Name = book.Name,
                 Description = book.Description,
                 Authors = string.Join("; ", authors),
-                Photo = book.Photo.ToBase64String()
+                Photo = book.Photo?.ToBase64String()
             };
         }
 
@@ -63,7 +63,7 @@ namespace Lab2Server.Mappers
                 Name = book.Name,
                 Description = book.Description,
                 Authors = new MultiSelectList(authors.Select(a => new { Value = a.Key, Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) } )),
-                Photo = book.Photo.ToBase64String()
+                Photo = book.Photo?.ToBase64String()
             };
         }
 

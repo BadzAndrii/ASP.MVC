@@ -22,17 +22,17 @@ namespace Lab2Server.Controllers
         [HttpGet]
         public ActionResult List(int? page = 1, int? count = 10)
         {
-            return View(List(page, count));
+            return View(ListBooks(page.Value, count.Value));
         }
 
         //FOR ADMIN
         [Authorize, HttpGet]
         public ActionResult AdminList(int? page = 1, int? count = 10)
         {
-            return View(List(page, count));
+            return View(ListBooks(page.Value, count.Value));
         }
 
-        [Authorize, HttpPost]
+        [Authorize]
         public ActionResult Create()
         {
             var model = new Book().MapToEditBookModel(_sagesRepository.GetAuthorsDictionary());
@@ -74,7 +74,7 @@ namespace Lab2Server.Controllers
             return Redirect("AdminList");
         }
 
-        private List<BookModel> List(int page, int count)
+        private List<BookModel> ListBooks(int page, int count)
         {
             return _booksRepository.List(page, count).MapToListBookModel();
         }
