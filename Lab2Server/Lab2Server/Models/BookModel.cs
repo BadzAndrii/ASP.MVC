@@ -15,11 +15,12 @@ namespace Lab2Server.Models
         public string Description { get; set; }
 
         [Required]
+        [UIHint("Date")]
         public int Year { get; set; }
 
         public string Authors { get; set; }
 
-        [Display(AutoGenerateField = false)]
+        [UIHint("PhotoPreview")]
         public string Photo { get; set; }
     }
 }

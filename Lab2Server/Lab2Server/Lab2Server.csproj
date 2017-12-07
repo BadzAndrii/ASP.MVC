@@ -104,7 +104,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome-4.7.0\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="SageContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -167,6 +175,7 @@
     <Content Include="Views\Books\List.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuLinks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -176,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
     <Folder Include="Views\Authors\" />
   </ItemGroup>
   <ItemGroup>

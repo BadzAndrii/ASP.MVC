@@ -7,46 +7,143 @@
     <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js" ></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        body    {
+            width: 70%;
+            min-width:600px;
+            margin: 0 auto;
+            font-size:1.5em;
+        }
+
+        .header {
+            color: white;
+
+            background-color: #333;
+
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .header a { color:white; }
+        .header a:hover { background-color: #111; }
+        .header .fa {
+            color: white;
+            padding: 14px 16px;
+
+        }
+        .header .logo {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+        .header .user-menu {
+            display: inline-block;
+            width: 75%;
+            flex-grow: 7
+        }
+
+        .user-cart {
+            display: inline-block;
+            
+            border-left: 1px dotted white;
+            
+            display: flex;
+            align-items: center;
+
+            flex-grow: 1
+        }
+
+            .user-cart label {
+                width: auto;
+            }
+
+        .header .user-setting {
+            display: inline-block;
+            max-width: 250px;
+            
+            border-left: 1px dotted white;
+
+            display: flex;
+            align-items: center;
+            flex-grow: 1
+        }
+
+        label.user-name {
+            margin: 5px 10px;
+            max-width: 150px;
+            content: circle;
+        }
+
+        div label { display: inline-block; width:100px; }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
 </head>
 <body>
-
-    <div style="width:auto; background-color:aqua">
-        @if (Request.IsAuthenticated)
-        {
-            <strong>@Html.Encode(User.Identity.Name)</strong>
-            @Html.ActionLink("Log Out", "LogOut", "Users")
-        }
-        else
-        {
-            @*@Html.ActionLink("Register", "Register", "Users")*@
-            <span> | </span>
-            @Html.ActionLink("Log In", "Login", "Users")
-        }
+    @{ var itemsInCart = Session["UserCart"] != null ? (Session["UserCart"] as Dictionary<int, int>).Count : 0; }
+    <div class="header">
+        <div class="logo">
+            <a href="#">
+                <i class="fa fa-book" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="user-menu">
+            @{Html.RenderAction("Menu", "Home");}
+        </div>
+        <div class="user-cart">
+            <a href="javascript:void(0)">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <label>@itemsInCart</label>
+            </a>
+        </div>
+        <div class="user-setting">
+            @if (Request.IsAuthenticated)
+            {
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span> | </span>
+                <label class="user-name">@Html.Encode(User.Identity.Name)</label>
+                <a href="/Users/LogOut">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </a>
+            }
+            else
+            {
+                @*@Html.ActionLink("Register", "Register", "Users")*@
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span> | </span>
+                <a href="/Users/Login">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+            }
+        </div>
     </div>
 
-    <div style="background-color:aquamarine"><h4>!!!I AM THE HEADER!!!</h4>
-    @if(User.Identity.IsAuthenticated)
-    {
-    <ul>
-            @{
-                var linkMenu = new[] 
-                {
-                        new {Text = "Books",Action = "AdminList",Route = "Books"},
-                        new {Text = "Authors",Action = "List", Route = "Authors"}
-                };
-              }
-            @foreach (var item in linkMenu)
-            {
-                <li>@Html.ActionLink(item.Text,item.Action,item.Route)</li>
-            }
-        </ul>
-      }
-</div>
-
-    
     <div>
         @RenderBody()
     </div>
+
     <div style="background-color:aquamarine"><h4>!!!I AM THE FOOTER!!!</h4></div>
 </body>
 </html>

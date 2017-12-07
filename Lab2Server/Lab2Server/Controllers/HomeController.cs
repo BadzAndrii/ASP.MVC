@@ -7,10 +7,8 @@ namespace Lab2Server.Controllers
     {
         private readonly Dictionary<string, string> _menu = new Dictionary<string, string>
         {
-            { "Login", "/login/index"},
-            { "Books", "/books/list" },
-            { "Authors", "/authors/list" },
-            { "About", "/about/details" },
+            { "Books", "/books/adminlist" },
+            { "Authors", "/authors/list" }
         };
 
         // GET: Home
@@ -22,6 +20,11 @@ namespace Lab2Server.Controllers
             }
 
             return Redirect("Users/Login");
+        }
+
+        public ActionResult Menu()
+        {
+            return View("_MenuLinks", User.Identity.IsAuthenticated ? _menu : new Dictionary<string, string> { { "Books", "/books/list" } });
         }
     }
 }

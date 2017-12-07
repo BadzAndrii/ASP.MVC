@@ -20,6 +20,12 @@ namespace Lab2Server.Controllers
         }
 
         [HttpGet]
+        public ActionResult Index()
+        {
+            return Redirect(User.Identity.IsAuthenticated ? "AdminList" : "List");
+        }
+
+        [HttpGet]
         public ActionResult List(int? page = 1, int? count = 10)
         {
             return View(ListBooks(page.Value, count.Value));
