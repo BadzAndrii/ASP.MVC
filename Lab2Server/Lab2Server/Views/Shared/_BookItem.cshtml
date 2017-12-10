@@ -4,60 +4,6 @@
     Layout = null;
     var imageSource = @Model.Photo ?? "/Content/no-book-preview.png";
 }
-<style>
-    div.books-list {
-        display: block;
-        height: 600px;
-        overflow-x:hidden;
-        overflow-y:auto;
-    }
-
-    div.books-list div.book-item {
-        display: flex;
-            
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-            
-        height:100px;
-        padding: 10px;
-        border-top: 1px dotted grey;
-    }
-
-    div.books-list div.book-item:first-child {
-        border: none !important;
-    }
-
-    div.book-item .book-picture {
-        width: 25%;
-        max-width: 100px;
-        height: 100px;
-
-        background-color:black;
-        border: 10px solid white;
-    }
-
-    div.book-item div {
-        width:25%;
-        min-width:200px;
-    }
-
-    div.book-item p {
-        width: auto;
-        flex-grow: 5;
-        
-        margin-right: 10px;
-
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    div.book-item a {
-        max-width: 50px;
-        flex-basis: 50px;
-    }
-</style>
 
 <div class="book-item">
     <img class="book-picture" alt="book-picture" src="@imageSource" />
@@ -66,7 +12,8 @@
         <p>Pulished: <label><b><u>@Model.Year</u></b></label></p>
         <p>Author(s): <label><b><i>@Model.Authors</i></b></label></p>
     </div>
-    <p>@Model.Description</p>
+    
+    <p class="book-description">Decription:<br/>@Model.Description</p>
 
     @if (Request.IsAuthenticated)
     {
@@ -86,6 +33,5 @@
             </button>
             
         </form>
-        @*ADD TO CART FUNCTIONALITY*@
     }
 </div>

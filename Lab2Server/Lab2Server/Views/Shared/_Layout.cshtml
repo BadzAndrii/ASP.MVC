@@ -266,6 +266,68 @@
             text-align: center;
             font-style: italic;
         }
+        div.books-list {
+            display: block;
+            height: 600px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+            div.books-list div.book-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 100px;
+                padding: 10px;
+                border-top: 1px dotted grey;
+            }
+
+                div.books-list div.book-item:first-child {
+                    border: none !important;
+                }
+
+        div.book-item .book-picture {
+            width: 25%;
+            max-width: 100px;
+            margin-right:20px;
+            height: 100px;
+            background-color: black;
+            border: 10px solid white;
+        }
+
+        div.book-item div {
+            width: 25%;
+            min-width: 200px;
+        }
+
+        div.book-item div.cart-book-item {
+            width: 100% !important;
+        }
+        
+        div.book-item p {
+            width: auto;
+            flex-grow: 5;
+            margin-right: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        div.book-item p.book-description {
+            height: 100px;
+            text-wrap: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        div .book-item a {
+            max-width: 50px;
+            flex-basis: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>

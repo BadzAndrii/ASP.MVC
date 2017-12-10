@@ -17,9 +17,13 @@ namespace Lab2Server.Mappers
             return new ShoppingCartModel { ShoppingList = shoppingList };
         }
 
-        private static KeyValuePair<BookModel, int> MapToShoppingCartItem(int bookId, int count, Book book)
+        private static ShoppingItemModel MapToShoppingCartItem(int bookId, int count, Book book)
         {
-            return new KeyValuePair<BookModel, int>(BookModelMapper.MapToBookModel(book, book.Sages.Select(b => b.Name)), count);
+            return new ShoppingItemModel
+            {
+                Count = count,
+                Book = BookModelMapper.MapToBookModel(book, book.Sages.Select(b => b.Name))
+            };
         }
     }
 }

@@ -11,7 +11,7 @@
     <div class="books-list">
         @foreach (var item in Model.ShoppingList)
         {
-            //Html.RenderPartial("_BookItem", item);
+            Html.RenderPartial("_ShoppingCartItem", item);
         }
     </div>
 }

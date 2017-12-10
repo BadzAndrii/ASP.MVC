@@ -1,0 +1,44 @@
+﻿@using Lab2Server.Models
+@model ShoppingItemModel
+@{
+    Layout = null;
+    var imageSource = Model.Book.Photo ?? "/Content/no-book-preview.png";
+}
+<style>
+    form div.cart-form {
+        display: flex;
+    }
+
+        form div.cart-form .cart-form-control {
+            display: inline-flex;
+            width: 75px;
+            
+            align-items: center;
+            justify-content: center;
+        }
+
+    form div.cart-form a.cart-form-control {
+        
+        margin-left:20px;
+    }
+</style>
+<div class="book-item">
+    <img class="book-picture" alt="book-picture" src="@imageSource" />
+    <div class="cart-book-item">
+        <p>Name: <label><b>@Model.Book.Name</b></label></p>
+        <p>Pulished: <label><b><u>@Model.Book.Year</u></b></label></p>
+        <p>Author(s): <label><b><i>@Model.Book.Authors</i></b></label></p>
+    </div>
+
+    <form method="post" action="@Url.Action("EditCartItem", new { bookId = @Model.Book.Id })">
+        <div class="cart-form">
+            <input class="cart-form-control" type="number" min="1" max="999" required value="@Model.Count" name="count" />
+            <button class="cart-form-control">
+                <i class="fa fa-2x fa-check" aria-hidden="true"></i>
+            </button>
+            <a class="cart-form-control" href="@Url.Action("Remove", new { bookId = @Model.Book.Id })">
+                <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+            </a>
+        </div>
+    </form>
+</div>
