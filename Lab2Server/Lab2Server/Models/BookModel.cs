@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Lab2Server.Models
@@ -12,15 +11,15 @@ namespace Lab2Server.Models
         [Required]
         public string Name { get; set; }
 
+        [MinLength(5), MaxLength(500)]
         public string Description { get; set; }
 
-        [Required]
-        [UIHint("Date")]
+        [Required, Range(1900, 2017)]
         public int Year { get; set; }
 
         public string Authors { get; set; }
 
-        [UIHint("PhotoPreview")]
+        [UIHint("_PhotoPreview")]
         public string Photo { get; set; }
     }
 }

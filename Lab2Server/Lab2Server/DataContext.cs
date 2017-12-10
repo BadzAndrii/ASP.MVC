@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab2Server.Entities;
 using System.Data.Entity;
-using Lab2Server.Models;
 
 namespace Lab2Server
 {
-    public class DataContext<TEntity> : DbContext where TEntity : class, new()
+    public class DataContext : DbContext
     {
-        public DataContext() : base("DbConnection") { }
+        public DataContext() : base("DbConnection")
+        {
+        }
 
-        public DbSet<TEntity> Data { get; set; }
+        public DbSet<Book> BookContext { get; set; }
+        public DbSet<Sage> SageContext { get; set; }
+
+        public DbSet<TResult> GetData<TResult>() where TResult : class, new()
+        {
+            return BookContext as DbSet<TResult> ?? SageContext as DbSet<TResult>;
+        }
     }
 }

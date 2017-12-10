@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+<div class="upload-photo form-group">
+    @Html.LabelForModel(new { @class = "control-label" })
+    <div class="col-md-10">
+        <input type="file" name="PhotoUpload" />
+        <script>
+            document.querySelector("div.upload-photo input[name=PhotoUpload]").addEventListener("click", function (event) { this.src = ""; });
+        </script>
+        @Html.ValidationSummary()
+    </div>
+</div>

@@ -21,47 +21,52 @@ namespace Lab2Server.Controllers
         [HttpPost]
         public ActionResult Login(UserModel model)
         {
-            if (ModelState.IsValid) { 
-            var aLogin = ConfigurationManager.AppSettings["adminlogin"];
-            var aPassword = ConfigurationManager.AppSettings["adminpassword"];
-            if (string.Equals(aLogin,model.Email,StringComparison.InvariantCultureIgnoreCase)
-                && aPassword == model.Password)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (ModelState.IsValid) {
 
-                string userData = serializer.Serialize(model);
+                var aLogin = ConfigurationManager.AppSettings["adminlogin"];
+                var aPassword = ConfigurationManager.AppSettings["adminpassword"];
 
-                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                         1,
-                         model.Email,
-                         DateTime.Now,
-                         DateTime.Now.AddMinutes(15),
-                         false,
-                         userData);
+                if (string.Equals(aLogin,model.Email,StringComparison.InvariantCultureIgnoreCase) && aPassword == model.Password)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-                string encTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-                Response.Cookies.Add(faCookie);
+                    string userData = serializer.Serialize(model);
+
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                             1,
+                             model.Email,
+                             DateTime.Now,
+                             DateTime.Now.AddMinutes(15),
+                             false,
+                             userData);
+
+                    string encTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+
+                    Response.Cookies.Add(faCookie);
+
+                    return Redirect("/Books/Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("Login", "Incorrect username or password.");
+                }
             }
-            return Redirect("Books/AdminList");
-            }
+
             return View();
         }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon(); // it will clear the session at the end of request
-            return Redirect("Login");
-        }
-        [HttpPost]
-        public ActionResult Create(UserModel model)
-        {
-            //model.Photo= new byte[image1.ContentLength];
-            //var newUser = new User { FirstName = model.FirstName, LastName = model.LastName , Email = model.Email , Password = model.Password};
 
-            //dataContext.Users.Add(newUser);
-            //dataContext.SaveChanges();
-            return Redirect("List");
+            //Clear User Auth tiket cookie
+            Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
+
+            // it will clear the session at the end of request
+            Session.Abandon();
+            
+            return RedirectToAction("Login");
         }
     }
 }

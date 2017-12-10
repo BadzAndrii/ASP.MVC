@@ -1,0 +1,15 @@
+﻿@using Lab2Server.Models
+@model PaginationModel<BookModel>
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@ViewBag.Title <sup>admin</sup></h2>
+
+<p>
+    <a href="@Url.Action("Create")">
+        <i class="fa fa-plus-square"></i> Create
+    </a>
+</p>
+
+@Html.Partial("_ListOfBooks", Model)

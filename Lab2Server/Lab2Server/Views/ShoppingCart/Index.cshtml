@@ -1,0 +1,27 @@
+﻿@using Lab2Server.Models
+@model ShoppingCartModel
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@if (Model.ShoppingList.Any())
+{
+    <div class="books-list">
+        @foreach (var item in Model.ShoppingList)
+        {
+            //Html.RenderPartial("_BookItem", item);
+        }
+    </div>
+}
+else
+{
+    <div>
+        <p><i class="fa fa-frown-o" aria-hidden="true"></i>It looks like<br /><sup>You haven't added any book yet.</sup></p>
+    </div>
+}
+
+
+
+

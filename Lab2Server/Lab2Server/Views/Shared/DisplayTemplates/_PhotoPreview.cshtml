@@ -1,0 +1,12 @@
+﻿@{
+    Layout = null;
+    var imageSource = string.IsNullOrEmpty(Model) ? "/Content/no-book-preview.png" : Model;
+}
+<div>
+    <div class="preview-photo">
+        <img alt="photo-preview" src="@imageSource" />
+        <p>
+            <label>preview</label>
+        </p>
+    </div>
+</div>

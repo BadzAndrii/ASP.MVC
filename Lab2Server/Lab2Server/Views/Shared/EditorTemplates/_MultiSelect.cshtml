@@ -1,0 +1,16 @@
+﻿@model MultiSelectList
+@{
+    Layout = null;
+}
+<div class="form-group">
+    @Html.LabelForModel(new { @class = "control-label required" })
+    <div class="col-md-10">
+        <select multiple="multiple" name="SelectedAuthorsIds">
+            @foreach (SelectListItem item in Model.Items)
+            {
+                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+            }
+        </select>
+        @Html.ValidationSummary()
+    </div>
+</div>

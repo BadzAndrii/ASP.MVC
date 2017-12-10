@@ -6,11 +6,15 @@ namespace Lab2Server.Models
 {
     public class EditBookModel : BookModel
     {
-        [Required]
-        [UIHint("MultiSelect")]
+
+        [UIHint("_MultiSelect")]
+        [Display(AutoGenerateField = false)]
         public new MultiSelectList Authors { get; set; }
 
-        [UIHint("UploadPhoto")]
+        public int[] SelectedAuthorsIds { get; set; }
+
+        [UIHint("_PhotoUpload")]
+        [Display(AutoGenerateField = false, Name = "Photo Upload")]
         public HttpPostedFileBase PhotoUpload { get; set; }
     }
 }

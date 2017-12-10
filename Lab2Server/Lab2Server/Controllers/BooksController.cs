@@ -22,18 +22,18 @@ namespace Lab2Server.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return Redirect(User.Identity.IsAuthenticated ? "AdminList" : "List");
+            return RedirectToAction(User.Identity.IsAuthenticated ? "Admin" : "Shop");
         }
 
         [HttpGet]
-        public ActionResult List(int? page = 1, int? count = 10)
+        public ActionResult Shop(int? page = 1, int? count = 10)
         {
             return View(ListBooks(page.Value, count.Value));
         }
 
         //FOR ADMIN
         [Authorize, HttpGet]
-        public ActionResult AdminList(int? page = 1, int? count = 10)
+        public ActionResult Admin(int? page = 1, int? count = 10)
         {
             return View(ListBooks(page.Value, count.Value));
         }
@@ -61,12 +61,12 @@ namespace Lab2Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var selectedAuthors = _sagesRepository.Get((model.Authors.SelectedValues as IEnumerable<int>).ToArray());
-                var book = model.MapToBook(_booksRepository.Get(model.Id), selectedAuthors);
+                var selectedAuthors = _sagesRepository.Get((model.SelectedAuthorsIds as IEnumerable<int>).ToArray());
+                var book = model.MapToBook(_booksRepository.Get(model.Id) ?? new Book(), selectedAuthors);
 
                 _booksRepository.Save(book);
 
-                return Redirect("AdminList");
+                return RedirectToAction("Admin");
             }
 
             return View(model);
@@ -77,12 +77,17 @@ namespace Lab2Server.Controllers
         {
             _booksRepository.Delete(id);
 
-            return Redirect("AdminList");
+            return RedirectToAction("Admin");
         }
 
-        private List<BookModel> ListBooks(int page, int count)
+        private PaginationModel<BookModel> ListBooks(int page, int count)
         {
-            return _booksRepository.List(page, count).MapToListBookModel();
+            return new PaginationModel<BookModel>
+            {
+                Current = page,
+                Total = _booksRepository.Count() / count,
+                PageItems = _booksRepository.List(page, count).MapToListBookModel()
+            };
         }
     }
 }

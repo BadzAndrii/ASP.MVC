@@ -6,27 +6,45 @@ namespace Lab2Server.Repositories
 {
     public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : KeyEntity, new()
     {
-        protected readonly DataContext<TEntity> _context = new DataContext<TEntity>();
+        protected readonly DataContext _context;
+
+        protected BaseRepository(DataContext context)
+        {
+            _context = context;
+        }
 
         public TEntity Get(int id)
         {
-            return _context.Data.FirstOrDefault(x => x.Id == id);
+            return _context.GetData<TEntity>().FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<TEntity> Get(params int[] ids)
+        {
+            return _context.GetData<TEntity>().Where(s => ids.Contains(s.Id)).ToList();
         }
 
         public List<TEntity> List(int page, int count)
         {
-            return _context.Data.OrderBy(e => e.Id).Skip(page * count).Take(count).ToList();
+            return _context.GetData<TEntity>().OrderBy(e => e.Id).Skip(page <= 1 ? 0 : page * count).Take(count).ToList();
+        }
+
+        public int Count()
+        {
+            return _context.GetData<TEntity>().Count();
         }
 
         public void Save(TEntity entity)
         {
-            _context.Data.Add(entity);
+            if(entity.Id == 0)
+            {
+                _context.GetData<TEntity>().Add(entity);
+            }
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _context.Data.Remove(Get(id));
+            _context.GetData<TEntity>().Remove(Get(id));
             _context.SaveChanges();
         }
     }

@@ -5,21 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login (as admin) or proceed @Html.ActionLink("as user","List","Books")</h2>
+<h2>@ViewBag.Title <sup>admin</sup></h2>
 
 <div>
     @using (Html.BeginForm("Login", "Users", FormMethod.Post))
     {
         <p>
             @Html.LabelFor(l => l.Email)
-            @Html.EditorFor(l => l.Email)
-            @Html.ValidationMessageFor( l=>l.Email)
+            @Html.EditorFor(l => l.Email)            
         </p>
         <p>
             @Html.LabelFor(l => l.Password)
             @Html.PasswordFor(l => l.Password)
-            @Html.ValidationMessageFor(l => l.Password)
         </p>
-        <button>Login</button>
+        <p>
+            @Html.ValidationSummary()
+        </p>
+        <label>
+            <button>Login</button>
+        </label>
+        <label style="border-left:1px dotted black; padding: 0 20px; font-size:2em; width:200px;">
+            <a href="@Url.Action("Shop","Books")"><i class="fa fa-1x fa-user-secret"></i> <sup>as anonym</sup></a>
+        </label>
     }
 </div>

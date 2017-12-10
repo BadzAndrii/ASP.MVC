@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ico = ViewBag.IconClass ?? "times-circle";
+    var message = ViewBag.Message ?? "Something went wrong";
+}
+<h2>@ViewBag.Title</h2>
+
+<div class="error">
+    <p>
+        <i class="fa fa-2x fa-@ico"></i>
+        <span>Oops<br/>
+            <sup>@message!</sup>
+        </span>
+    </p>
+</div>
+
+

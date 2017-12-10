@@ -1,45 +1,23 @@
 ﻿@using Lab2Server.Models
-@model IEnumerable<BookModel>
+@model PaginationModel<BookModel>
 
-@if(Model.Any())
-{ 
-<table class="table">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.Photo)</th>
-        <th>@Html.DisplayNameFor(model => model.Name)</th>
-        <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th>@Html.DisplayNameFor(model => model.Year)</th>
-        <th>@Html.DisplayNameFor(model => model.Authors)</th>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <th></th>
-        <th></th>
-    }
-    </tr>
+@if(Model.PageItems.Any())
+{
+    
+    <div class="books-list">
+        @foreach (var item in Model.PageItems)
+        {
+            Html.RenderPartial("_BookItem", item);
+        }
+    </div>
+    <div class="pager">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td><img alt="book-picture" src="@item.Photo" /></td>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Description)</td>
-            <td>@Html.DisplayFor(modelItem => item.Year)</td>
-            <td>@Html.DisplayFor(modelItem => item.Authors)</td>
-
-     @if (User.Identity.IsAuthenticated)
-     {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-      }
-        </tr>
-    }
-</table>
+    </div>
 }
 else
 {
-    <p>Oops, sorry. There are no books added yet.</p>
+    <div>
+        <p><i class="fa fa-2x fa-info-circle"></i>Oops, we are sorry.<br/><sup>There are no books added yet.</sup></p>
+    </div>
+    
 }

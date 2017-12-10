@@ -9,14 +9,49 @@
     <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
-        body    {
+        body {
             width: 70%;
-            min-width:600px;
+            min-width:800px;
             margin: 0 auto;
-            font-size:1.5em;
+            font-size:1.0em;
+            font-family:Calibri;
         }
 
-        .header {
+        form div.form-group label.control-label {
+            width: auto;
+            margin: 10px auto 0 auto;
+        }
+
+        form div.form-group label.required:before {
+            color:red;
+            content: "* ";
+        }
+
+        .header ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .header li {
+            float: left;
+        }
+
+        .header li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .header li a:hover {
+            background-color: #111;
+        }
+        
+        .header, .footer {
             color: white;
 
             background-color: #333;
@@ -25,39 +60,46 @@
             align-items: stretch;
         }
         
+        .footer p {
+            margin: 5px 25px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
         .header a { color:white; }
+        
         .header a:hover { background-color: #111; }
+        
         .header .fa {
             color: white;
             padding: 14px 16px;
 
         }
+        
         .header .logo {
             flex-grow: 1;
             display: flex;
             align-items: center;
         }
+        
         .header .user-menu {
             display: inline-block;
             width: 75%;
             flex-grow: 7
         }
-
+        
         .user-cart {
             display: inline-block;
-            
             border-left: 1px dotted white;
-            
             display: flex;
             align-items: center;
-
             flex-grow: 1
         }
-
-            .user-cart label {
+        
+        .user-cart label {
                 width: auto;
             }
-
+        
         .header .user-setting {
             display: inline-block;
             max-width: 250px;
@@ -68,41 +110,166 @@
             align-items: center;
             flex-grow: 1
         }
+        
+        div.user-cart a {
+            min-width: 100px;
+        }
 
+        div.user-cart a label {
+            padding: 0 5px;
+            background-color: white;
+            color: rgba(7,7,7,1);
+            border: 1px dotted gray;
+            border-radius: 5px
+        }
+        
         label.user-name {
             margin: 5px 10px;
             max-width: 150px;
-            content: circle;
-        }
-
-        div label { display: inline-block; width:100px; }
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
             overflow: hidden;
-            background-color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        li {
+        h2 sup {
+            float: right;
+        }
+
+        h2 sup:before {
+            content: "* ";
+            color: red;
+        }
+
+        div.main-container {
+            padding:20px;
+            min-height:300px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.35) inset;
+            background-color: whitesmoke;
+        }
+
+            div.main-container h2 {
+                padding: 5px 20px;
+                width: 25%;
+                min-width: 250px;
+                
+                color: rgba(128, 0, 0, 1);
+                background-color: rgba(241, 229, 208, 1);
+                border: 1px solid wheat;
+                border-bottom: 1px solid rgba(217, 202, 176, 1);
+
+                text-transform: uppercase;
+                transform: rotateZ(-1deg);
+            }
+
+        div.main-container div p:only-child {
+            color: deepskyblue;
+            background-color: rgba(241, 229, 208, 1);
+
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 0px -1px 0px darkcyan, 0px 1px 0px aliceblue;
+            
+            width: 30%;
+            min-width: 400px;
+            margin: auto;
+
+            transform: rotateZ(-1deg);
+        }
+
+        div.main-container div.error p:only-child {
+            color: brown !important;
+            text-shadow: 0px -1px 0px red !important;
+            background-color: rgba(241, 229, 208, 1);
+            transform: rotateZ(-1deg);
+        }
+        
+        div.main-container div p:only-child i {
             float: left;
+            margin: 5px 20px;
         }
 
-        li a {
-            display: block;
-            color: white;
+        div.main-container a, div.main-container a:visited {
+            color: rgba(128, 0, 0, 1);
+            text-decoration:none;
+        }
+        
+        div.main-container a:hover {
+            color: red;
+        }
+        
+        form label {
+            display: inline-block;
+            width: 100px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        form div.form-horizontal {
+            margin: 10px 50px;
+        }
+
+        form span.field-validation-error span {
+            display: inline-block;
+            width: 200px;
+            margin-left: 10px;
+            color: red;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        form .validation-summary-errors ul {
+            color: red;
+            list-style: none;
+        }
+        
+        form .validation-summary-errors ul li:before
+        {
+            content: "* ";
+        }
+        
+        form input, textarea, select {
+            width: 200px;
+        }
+        
+        form textarea {
+            resize: vertical;
+            overflow: auto;
+        }
+
+        form button {
+            padding: 5px 10px;
+        }
+
+        form div.form-horizontal {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        div.preview-photo {
+            display: inline-block;
+            background-color: white;
+            border: 1px solid silver;
+            border-bottom: 1px solid rgba(0,0,0,.35);
+        }
+
+        div.preview-photo > img {
+            height: auto;
+            min-width: 250px;
+            max-width: 250px;
+            box-shadow: inset 0px 1px 3px rgba(0,0,0,0.35);
+            background-color: black;
+        }
+
+        div.preview-photo p {
+            margin: 5px auto;
             text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: #111;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    @{ var itemsInCart = Session["UserCart"] != null ? (Session["UserCart"] as Dictionary<int, int>).Count : 0; }
+    @{ var itemsInCart = Session[Constants.UserCart] != null ? (Session[Constants.UserCart] as Dictionary<int, int>).Count : 0; }
     <div class="header">
         <div class="logo">
             <a href="#">
@@ -112,19 +279,22 @@
         <div class="user-menu">
             @{Html.RenderAction("Menu", "Home");}
         </div>
-        <div class="user-cart">
-            <a href="javascript:void(0)">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                <label>@itemsInCart</label>
-            </a>
-        </div>
+        @if (!Request.IsAuthenticated)
+        {
+            <div class="user-cart">
+                <a href="@Url.Action("Index","ShoppingCart")">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <label>@itemsInCart</label>
+                </a>
+            </div>
+        }
         <div class="user-setting">
             @if (Request.IsAuthenticated)
             {
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span> | </span>
                 <label class="user-name">@Html.Encode(User.Identity.Name)</label>
-                <a href="/Users/LogOut">
+                <a href="@Url.Action("Logout", "Users")">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                 </a>
             }
@@ -133,17 +303,19 @@
                 @*@Html.ActionLink("Register", "Register", "Users")*@
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span> | </span>
-                <a href="/Users/Login">
+                <a href="@Url.Action("Login", "Users")">
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                 </a>
             }
         </div>
     </div>
 
-    <div>
+    <div class="main-container">
         @RenderBody()
     </div>
 
-    <div style="background-color:aquamarine"><h4>!!!I AM THE FOOTER!!!</h4></div>
+    <div class="footer">
+        <p>books-sages project / © Andriy Badz / 2017</p>
+    </div>
 </body>
 </html>

@@ -2,22 +2,18 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Script.Serialization;
 using System.Web.Security;
 
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using System.Reflection;
-
-using Lab2Server.Models;
 using Lab2Server.Entities;
 using Lab2Server.Repositories;
-using Lab2Server.Entities;
 
 namespace Lab2Server
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -26,12 +22,15 @@ namespace Lab2Server
 
             // Create the container as usual.
             var container = new Container();
-                container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+
+            //Register your Context / webrequest
+            container.Register<DataContext>(new WebRequestLifestyle());
 
             // Register your types, for instance:
             container.Register<ISageRepository, SagesRepository>();
             container.Register<IRepository<Book>, BooksRepository>();
-            
+
             // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
@@ -47,19 +46,33 @@ namespace Lab2Server
 
             if (authCookie != null)
             {
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                HttpContext.Current.User = new AdminPrincipal(authTicket.Name);
+            }
+        }
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+        protected void Session_End()
+        {
+            HandleUserAuthCookie();
+        }
 
-                var serializeModel = serializer.Deserialize<UserModel>(authTicket.UserData);
+        protected void Application_End()
+        {
+            HandleUserAuthCookie();
+        }
 
-                var newUser = new AdminPrincipal(authTicket.Name);
-                //newUser.Id = 100500;
-                //newUser.FirstName = serializeModel.FirstName;
-                //newUser.LastName = serializeModel.LastName;
-                
+        private void HandleUserAuthCookie()
+        {
+            Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
+        }
 
-                HttpContext.Current.User = newUser;
+        void Application_EndRequest(object sender, System.EventArgs e)
+        {
+            // If the user is not authorised to see this page or access this function, send them to the error page.
+            if (Response.StatusCode == 401)
+            {
+                Response.ClearContent();
+                Response.Redirect("/Error/Unauthorized");
             }
         }
     }

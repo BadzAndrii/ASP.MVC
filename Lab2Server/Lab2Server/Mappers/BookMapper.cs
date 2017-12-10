@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Lab2Server.Models;
 using Lab2Server.Entities;
 using Lab2Server.Extensions;
+using Lab2Server.Comparers;
 
 namespace Lab2Server.Mappers
 {
@@ -24,16 +25,8 @@ namespace Lab2Server.Mappers
         {
             MapToBook(model as BookModel, book);
 
-            book.Sages = authors;
-
-            if(model.PhotoUpload != null)
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    model.PhotoUpload.InputStream.CopyTo(memStream);
-                    book.Photo = memStream.ToArray();
-                }
-            }
+            book.Sages.AddRangeExceptExisting(authors, new KeyEqulityComparer());
+            book.Photo = model.PhotoUpload?.InputStream.ToBlob() ?? book.Photo;
 
             return book;
         }
@@ -50,7 +43,7 @@ namespace Lab2Server.Mappers
                 Name = book.Name,
                 Description = book.Description,
                 Authors = string.Join("; ", authors),
-                Photo = book.Photo?.ToBase64String()
+                Photo = book.Photo?.ToImageSource()
             };
         }
 
@@ -62,8 +55,8 @@ namespace Lab2Server.Mappers
                 Year = book.Year,
                 Name = book.Name,
                 Description = book.Description,
-                Authors = new MultiSelectList(authors.Select(a => new { Value = a.Key, Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) } )),
-                Photo = book.Photo?.ToBase64String()
+                Authors = new MultiSelectList(authors.Select(a => new SelectListItem { Value = a.Key.ToString(), Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) } )),
+                Photo = book.Photo?.ToImageSource()
             };
         }
 
