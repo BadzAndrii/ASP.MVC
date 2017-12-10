@@ -12,7 +12,7 @@
         <p>Author(s): <label><b><i>@Model.Book.Authors</i></b></label></p>
     </div>
 
-    <form method="post" action="@Url.Action("EditCartItem", new { bookId = @Model.Book.Id })">
+    <form method="post" action="@Url.Action("Edit", new { bookId = @Model.Book.Id })">
         <div class="cart-form">
             <input class="cart-form-control" type="number" min="1" max="999" required value="@Model.Count" name="count" />
             <button class="cart-form-control">

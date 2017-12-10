@@ -44,6 +44,34 @@ namespace Lab2Server.Controllers
             return Redirect("/Books/Index");
         }
 
+        public ActionResult Edit(int bookId, int count)
+        {
+            var userCart = GetUserCart() ?? new Dictionary<int, int>();
+
+            if (bookId > 0 && userCart.ContainsKey(bookId))
+            {
+                userCart[bookId] = count;
+
+                SetUserCart(userCart);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Remove(int bookId)
+        {
+            var userCart = GetUserCart() ?? new Dictionary<int, int>();
+
+            if (bookId > 0 && userCart.ContainsKey(bookId))
+            {
+                userCart.Remove(bookId);
+
+                SetUserCart(userCart);
+            }
+
+            return RedirectToAction("Index");
+        }
+
         private Dictionary<int, int> GetUserCart()
         {
             return Session[Constants.UserCart] as Dictionary<int, int> ?? new Dictionary<int, int>(0);
