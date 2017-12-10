@@ -82,10 +82,16 @@ namespace Lab2Server.Controllers
 
         private PaginationModel<BookModel> ListBooks(int page, int count)
         {
+            
+            var totalBooks = _booksRepository.Count();
+            var totalPages = totalBooks > count
+                           ? (totalBooks % count) > 0 ? (totalBooks / count) + 1 : totalBooks / count
+                           : 1;
+
             return new PaginationModel<BookModel>
             {
                 Current = page,
-                Total = _booksRepository.Count() / count,
+                Total = totalPages,
                 PageItems = _booksRepository.List(page, count).MapToListBookModel()
             };
         }

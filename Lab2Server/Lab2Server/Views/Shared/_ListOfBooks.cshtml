@@ -1,23 +1,20 @@
 ﻿@using Lab2Server.Models
 @model PaginationModel<BookModel>
 
-@if(Model.PageItems.Any())
+@if (Model.PageItems.Any())
 {
-    
+    @Html.Partial("_Pager")
     <div class="books-list">
         @foreach (var item in Model.PageItems)
         {
             Html.RenderPartial("_BookItem", item);
         }
     </div>
-    <div class="pager">
-
-    </div>
+    @Html.Partial("_Pager")
 }
 else
 {
     <div>
         <p><i class="fa fa-2x fa-info-circle"></i>Oops, we are sorry.<br/><sup>There are no books added yet.</sup></p>
     </div>
-    
 }

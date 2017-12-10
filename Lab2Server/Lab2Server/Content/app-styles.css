@@ -278,6 +278,7 @@ div.book-item .book-picture {
     height: 100px;
     background-color: black;
     border: 10px solid white;
+    object-fit: cover;
 }
 
 div.book-item div {
@@ -327,3 +328,24 @@ form div.cart-form {
     form div.cart-form a.cart-form-control {
         margin-left: 20px;
     }
+
+div.pager {
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+}
+
+    div.pager input {
+        text-align: center;
+        width: 100px;
+    }
+
+    div.pager a {
+        background-color: rgba(241, 229, 208, 1);
+        color: rgba(128, 0, 0, 1);
+        padding: 10px 15px;
+    }
+
+        div.pager a.disabled {
+            cursor: not-allowed;
+        }

@@ -205,6 +205,7 @@
     <Content Include="Views\Shared\_BookItem.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Shared\_ShoppingCartItem.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

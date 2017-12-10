@@ -1,0 +1,29 @@
+﻿@using Lab2Server.Models
+@model PaginationModel<BookModel>
+
+@{
+    string action = Request.IsAuthenticated ? "Admin" : "Shop",
+           firstPage = Url.Action(action, new { page = 1 }),
+           lastPage = Url.Action(action, new { page = Model.Total }),
+           prevPage = Url.Action(action, new { page = Model.Current - 1 > 1 ? Model.Current - 1 : 1 }),
+           nextPage = Url.Action(action, new { page = Model.Current + 1 < Model.Total ? Model.Current + 1 : Model.Total });
+}
+
+<div class="pager">
+    <a href="@firstPage">
+        <i class="fa fa-fast-backward" aria-hidden="true"></i>
+    </a>
+    <a href="@prevPage">
+        <i class="fa fa-step-backward" aria-hidden="true"></i>
+    </a>
+    
+    <input type="number" min="1" max="@Model.Total" value="@Model.Current" disabled="disabled" />
+
+    <a href="@nextPage">
+        <i class="fa fa-step-forward" aria-hidden="true"></i>
+    </a>
+    <a href="@lastPage">
+        <i class="fa fa-fast-forward" aria-hidden="true"></i>
+    </a>
+</div>
+
