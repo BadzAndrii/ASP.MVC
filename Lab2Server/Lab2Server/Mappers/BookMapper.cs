@@ -43,7 +43,7 @@ namespace Lab2Server.Mappers
                 Name = book.Name,
                 Description = book.Description,
                 Authors = string.Join("; ", authors),
-                Photo = book.Photo?.ToImageSource()
+                Photo = book.Photo?.ToImageSource() ?? "/Content/no-book-preview.png"
             };
         }
 
@@ -56,7 +56,7 @@ namespace Lab2Server.Mappers
                 Name = book.Name,
                 Description = book.Description,
                 Authors = new MultiSelectList(authors.Select(a => new SelectListItem { Value = a.Key.ToString(), Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) } )),
-                Photo = book.Photo?.ToImageSource()
+                Photo = book.Photo?.ToImageSource() ?? "/Content/no-book-preview.png"
             };
         }
 

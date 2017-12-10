@@ -18,7 +18,7 @@ namespace Lab2Server.Extensions
 
         public static string ToImageSource(this byte[] bytes)
         {
-            return $"data:image/png;base64,{Convert.ToBase64String(bytes)}";
+            return bytes == null ? null : $"data:image/png;base64,{Convert.ToBase64String(bytes)}";
         }
     }
 }

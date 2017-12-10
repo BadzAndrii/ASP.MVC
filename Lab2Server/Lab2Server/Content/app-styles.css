@@ -194,7 +194,7 @@ form div.form-horizontal {
 
 form span.field-validation-error span {
     display: inline-block;
-    width: 200px;
+    width: 400px;
     margin-left: 10px;
     color: red;
     overflow: hidden;

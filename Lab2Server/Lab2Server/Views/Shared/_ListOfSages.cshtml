@@ -1,0 +1,21 @@
+﻿@using Lab2Server.Models
+@model PaginationModel<SageModel>
+
+@if (Model.PageItems.Any())
+{
+    @Html.Partial("_Pager")
+    <div class="books-list">
+        @foreach (var item in Model.PageItems)
+        {
+            Html.RenderPartial("_SageItem", item);
+        }
+    </div>
+    @Html.Partial("_Pager")
+}
+else
+{
+    <div>
+        <p><i class="fa fa-2x fa-info-circle"></i>Oops, we are sorry.<br /><sup>There are no authors added yet.</sup></p>
+    </div>
+
+}

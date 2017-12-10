@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Comparers\SageEqulityComparer.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,7 +171,9 @@
     <Compile Include="Mappers\ShoppingCartMapper.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\EditBookModel.cs" />
+    <Compile Include="Models\EditSageModel.cs" />
     <Compile Include="Models\PaginationModel.cs" />
+    <Compile Include="Models\SageModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\ShoppingItemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -206,6 +209,10 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Shared\_ShoppingCartItem.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Shared\_ListOfSages.cshtml" />
+    <Content Include="Views\Shared\_SageItem.cshtml" />
+    <Content Include="Views\Authors\Admin.cshtml" />
+    <Content Include="Views\Authors\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,7 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Authors\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -4,9 +4,18 @@
 <div class="upload-photo form-group">
     @Html.LabelForModel(new { @class = "control-label" })
     <div class="col-md-10">
-        <input type="file" name="PhotoUpload" />
+        <input type="file" name="PhotoUpload" accept=".png, .jpeg, .jpg" />
         <script>
-            document.querySelector("div.upload-photo input[name=PhotoUpload]").addEventListener("click", function (event) { this.src = ""; });
+            $("div.upload-photo input[name=PhotoUpload]")
+                .off("click").on("click", function () { this.src = ""; })
+                .off("change").on("change", function () {
+                    var filename = (this.files[0] || { name: "" }).name;
+                    if (filename && ["jpeg", "jpg", "png"].indexOf(filename.split('.').pop().toLowerCase()) >= 0) {
+                        return true;
+                    }
+                    alert("Требуемое расширение файла: jpeg / jpg / png ");
+                    return false;
+                });
         </script>
         @Html.ValidationSummary()
     </div>

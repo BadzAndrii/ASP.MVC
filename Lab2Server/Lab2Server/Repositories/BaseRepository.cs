@@ -25,7 +25,13 @@ namespace Lab2Server.Repositories
 
         public List<TEntity> List(int page, int count)
         {
-            return _context.GetData<TEntity>().OrderBy(e => e.Id).Skip(page <= 1 ? 0 : page * count).Take(count).ToList();
+            if (page <= 0)
+                throw new System.ArgumentException("Must be greater than 0", nameof(page));
+
+            if(count <= 0)
+                throw new System.ArgumentException("Must be greater than 0", nameof(count));
+
+            return _context.GetData<TEntity>().OrderBy(e => e.Id).Skip(page * count - count).Take(count).ToList();
         }
 
         public int Count()
@@ -35,7 +41,7 @@ namespace Lab2Server.Repositories
 
         public void Save(TEntity entity)
         {
-            if(entity.Id == 0)
+            if (entity.Id == 0)
             {
                 _context.GetData<TEntity>().Add(entity);
             }

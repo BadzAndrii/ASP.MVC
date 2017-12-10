@@ -1,5 +1,5 @@
 ﻿@using Lab2Server.Models
-@model PaginationModel<BookModel>
+@model dynamic
 
 @{
     string action = Request.IsAuthenticated ? "Admin" : "Shop",
