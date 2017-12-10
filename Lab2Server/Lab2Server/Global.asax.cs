@@ -51,21 +51,6 @@ namespace Lab2Server
             }
         }
 
-        protected void Session_End()
-        {
-            HandleUserAuthCookie();
-        }
-
-        protected void Application_End()
-        {
-            HandleUserAuthCookie();
-        }
-
-        private void HandleUserAuthCookie()
-        {
-            Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
-        }
-
         void Application_EndRequest(object sender, System.EventArgs e)
         {
             // If the user is not authorised to see this page or access this function, send them to the error page.
