@@ -4,24 +4,6 @@
     Layout = null;
     var imageSource = Model.Book.Photo ?? "/Content/no-book-preview.png";
 }
-<style>
-    form div.cart-form {
-        display: flex;
-    }
-
-        form div.cart-form .cart-form-control {
-            display: inline-flex;
-            width: 75px;
-            
-            align-items: center;
-            justify-content: center;
-        }
-
-    form div.cart-form a.cart-form-control {
-        
-        margin-left:20px;
-    }
-</style>
 <div class="book-item">
     <img class="book-picture" alt="book-picture" src="@imageSource" />
     <div class="cart-book-item">
