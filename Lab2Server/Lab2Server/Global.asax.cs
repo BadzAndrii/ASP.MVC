@@ -10,6 +10,8 @@ using SimpleInjector.Integration.Web.Mvc;
 using System.Reflection;
 using Lab2Server.Entities;
 using Lab2Server.Repositories;
+using Lab2Server.App_Start;
+using System.Web.Http;
 
 namespace Lab2Server
 {
@@ -19,6 +21,7 @@ namespace Lab2Server
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
 
             // Create the container as usual.
             var container = new Container();
