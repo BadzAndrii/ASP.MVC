@@ -71,20 +71,5 @@ namespace Lab2Server.Controllers
 
             return RedirectToAction("Index");
         }
-
-        private Dictionary<int, int> GetUserCart()
-        {
-            return Session[Constants.UserCart] as Dictionary<int, int> ?? new Dictionary<int, int>(0);
-        }
-
-        private int[] GetCartItemIds()
-        {
-            return GetUserCart()?.Select(x => x.Key).ToArray() ?? new int[0];
-        }
-
-        private void SetUserCart(Dictionary<int, int> cart)
-        {
-            Session[Constants.UserCart] = cart;
-        }
     }
 }
