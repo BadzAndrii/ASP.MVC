@@ -9,9 +9,11 @@ using System.Web.SessionState;
 using System.Web;
 using System.Net.Http;
 using System.Net;
+using Lab2Server.Models;
 
 namespace Lab2Server.Controllers.api
 {
+    [RoutePrefix("/api/cart")]
     public class CartController : ApiController
     {
         IRepository<Book> _repository;
@@ -23,15 +25,16 @@ namespace Lab2Server.Controllers.api
         }
 
         // GET: api/Cart
-        public IEnumerable<string> Get()
+        public IEnumerable<ShoppingItemModel> Get()
         {
-            var ids = GetCartItemIds();
-            var entities = _repository.Get(ids);
+            //var ids = GetCartItemIds();
+            //var entities = _repository.Get(ids);
 
-            return ShoppingCartMapper.ToShoppingCartJSON(entities, GetUserCart());
+            //return ShoppingCartMapper.ToShoppingCartModel(entities, GetUserCart());
+            yield return new ShoppingItemModel { Count = 1, Book = new BookModel { Id = 1, Authors = "", Description = "test", Name = "NAME", Year = 1987 } };
         }
 
-        // POST: api/Cart INSERT
+        //POST: api/Cart INSERT
         public void Post(int id)
         {
             if (id > 0)
@@ -61,7 +64,7 @@ namespace Lab2Server.Controllers.api
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            
+
             // remove from UI list
             return Request.CreateResponse(HttpStatusCode.Gone, new { doesObjExist = exists });
         }

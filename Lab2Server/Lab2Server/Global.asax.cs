@@ -12,6 +12,7 @@ using Lab2Server.Entities;
 using Lab2Server.Repositories;
 using Lab2Server.App_Start;
 using System.Web.Http;
+using SimpleInjector.Integration.WebApi;
 
 namespace Lab2Server
 {
@@ -35,11 +36,12 @@ namespace Lab2Server
             container.Register<IRepository<Book>, BooksRepository>();
 
             // This is an extension method from the integration package.
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
 #if DEBUG
             container.Verify();
 #endif
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
 
