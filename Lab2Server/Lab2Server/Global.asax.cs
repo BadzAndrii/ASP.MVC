@@ -21,9 +21,8 @@ namespace Lab2Server
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
-
             // Create the container as usual.
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();

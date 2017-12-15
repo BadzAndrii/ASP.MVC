@@ -14,7 +14,7 @@
 </div>*@
 
 <script>
-    var apiURI = "http://localhost:51472/api/cart",
+    var apiURI = "api/Cart",
         saveCartItem = function (id, conunt) {
             $.ajax({
                 url: apiURI + "/" + id,
@@ -38,7 +38,7 @@
                 .append(
                 $("<img>")
                     .addClass("book-picture")
-                    .src(item.Book.Photo || "/Content/no-book-preview.png")
+                    .prop("src", item.Book.Photo || "/Content/no-book-preview.png")
                 )
                 .append(
                 $("<div>")

@@ -13,7 +13,7 @@ using Lab2Server.Models;
 
 namespace Lab2Server.Controllers.api
 {
-    [RoutePrefix("/api/cart")]
+    //[RoutePrefix("/api/cart")]
     public class CartController : ApiController
     {
         IRepository<Book> _repository;
