@@ -6,80 +6,51 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="books-list" id="cart-container">
-    
+
 </div>
 
-@*<div id="no-element-notification">
+<div id="no-content-msg" class="hidden-content">
     <p><i class="fa fa-frown-o" aria-hidden="true"></i>It looks like<br /><sup>You haven't added any book yet.</sup></p>
-</div>*@
+</div>
 
 <script>
-    var apiURI = "api/Cart",
-        saveCartItem = function (id, conunt) {
-            $.ajax({
-                url: apiURI + "/" + id,
-                type: "PUT",
-                data: conunt,
-                error: function (errMsg) { console.log(errMsg); },
-                success: function () { console.log('PUT: ', id, count); },
-            });
+    var toCartItem = function (item) {
+        return $("<div>")
+            .addClass("book-item")
+            .append(
+            $("<img>")
+                .addClass("book-picture")
+                .prop("src", item.Book.Photo || "/Content/no-book-preview.png")
+            )
+            .append(
+            $("<div>")
+                .addClass("cart-book-item")
+                .append($("<p>").html("Name: <label><b>" + item.Book.Name + "</b></label>"))
+                .append($("<p>").html("Author(s): <label><b>" + item.Book.Authors + "</b></label>"))
+            )
+            .append(
+            $("<div>")
+                .addClass("cart-form")
+                .append($("<input>").addClass("cart-form-control").val(item.Count).prop("type", "number").prop("min", "1").prop("max", "999").prop("required", "required"))
+                .append($("<button>").html('<i class="fa fa-2x fa-check" aria-hidden="true"></i>').on("click", function (e) {
+                    updateCart(item.Book.Id, $(this).closest("input.cart-form-control").val());
+                }))
+                .append($("<button>").html('<i class="fa fa-2x fa-trash" aria-hidden="true"></i>').on("click", function (e) {
+                    removeFromCart(item.Book.Id);
+                }))
+            );
+    },
+        updateCartPageElements = function (cartItems) {
+            if (this.data && this.data.length && cartData) {
+                $("#cart-container").html("");
+                $("#cart-container").append(cartItems.map(toCartItem));
+            }
+            else
+                $("#no-content-msg").removeClass("hidden-content");
         },
-        removeItemFromCart = function (id) {
-            $.ajax({
-                url: apiURI + "/" + id,
-                type: "DELETE",
-                error: function (errMsg) { console.log(errMsg); },
-                success: function () { console.log('DELETED: ', id); },
-            });
-        },
-        toCartItem = function (item) {
-            return $("<div>")
-                .addClass("book-item")
-                .append(
-                $("<img>")
-                    .addClass("book-picture")
-                    .prop("src", item.Book.Photo || "/Content/no-book-preview.png")
-                )
-                .append(
-                $("<div>")
-                    .addClass("cart-book-item")
-                    .append($("<p>").html("Name: <label><b>" + item.Book.Name + "</b></label>"))
-                    .append($("<p>").html("Author(s): <label><b>" + item.Book.Authors + "</b></label>"))
-                )
-                .append(
-                $("<div>")
-                    .addClass("cart-form")
-                    .append($("<input>").addClass("cart-form-control").prop("type", "number").prop("min", "1").prop("max", "999").prop("required", "required"))
-                    .append($("<button>").html('<i class="fa fa-2x fa-check" aria-hidden="true"></i>').on("click", function (e) {
-                        saveCartItem(item.Book.Id, $(this).closest("input.cart-form-control").val());
-                    }))
-                    .append($("<button>").html('<i class="fa fa-2x fa-trash" aria-hidden="true"></i>').on("click", function (e) {
-                        removeItemFromCart(item.Book.Id);
-                    }))
-                );
-        };
+        module = CartModule(updateCartPageElements);
 
-    $(function () {
-        setTimeout(function () {
-
-            $.ajax({
-                url: apiURI,
-                type: "GET",
-                dataType: 'json',
-                success: function (data) {
-
-                    if (!data && data.length)
-                        return alert("ERROR OCCURED");
-
-                    var cartItems = data.map(function (item) { return toCartItem(item); });
-
-                    $("#cart-container").append(cartItems);
-                },
-                error: function (errMsg) { console.log(errMsg); }
-            });
-
-        }, 200);
-    });
+    $(function () { module.get().then(result => module.refresh(result)); });
 </script>
 
 

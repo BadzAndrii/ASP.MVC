@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 using Lab2Server.Models;
 using Lab2Server.Entities;

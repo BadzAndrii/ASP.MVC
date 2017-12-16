@@ -349,3 +349,7 @@ div.pager {
         div.pager a.disabled {
             cursor: not-allowed;
         }
+
+    .hidden-content {
+        display:none;
+    }

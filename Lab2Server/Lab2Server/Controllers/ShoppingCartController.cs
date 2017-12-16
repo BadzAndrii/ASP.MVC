@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-
-using Lab2Server.Mappers;
+﻿using System.Web.Mvc;
 using Lab2Server.Entities;
 using Lab2Server.Repositories;
 
