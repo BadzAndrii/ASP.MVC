@@ -318,9 +318,9 @@ div.cart-form {
     display: flex;
 }
 
-form div.cart-form .cart-form-control {
+div.cart-form .cart-form-control {
     display: inline-flex;
-    width: 75px;
+    width: 150px;
     align-items: center;
     justify-content: center;
 }
@@ -338,7 +338,8 @@ div.book-item button i.fa-trash {
 }
 
 .pull-content-right {
-    flex-shrink: 2
+    width: auto !important;
+    min-width: auto !important;
 }
 
 div.pager {
