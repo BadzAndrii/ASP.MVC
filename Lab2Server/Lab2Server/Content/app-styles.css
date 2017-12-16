@@ -314,20 +314,32 @@ div .book-item a {
     justify-content: center;
 }
 
-form div.cart-form {
+div.cart-form {
     display: flex;
 }
 
-    form div.cart-form .cart-form-control {
-        display: inline-flex;
-        width: 75px;
-        align-items: center;
-        justify-content: center;
-    }
+form div.cart-form .cart-form-control {
+    display: inline-flex;
+    width: 75px;
+    align-items: center;
+    justify-content: center;
+}
 
-    form div.cart-form a.cart-form-control {
-        margin-left: 20px;
-    }
+div.cart-form a.cart-form-control {
+    margin-left: 20px;
+}
+
+div.book-item button i {
+    color: rgba(0, 128, 0, 1);
+}
+
+div.book-item button i.fa-trash {
+    color: rgba(128, 0, 0, 1);
+}
+
+.pull-content-right {
+    flex-shrink: 2
+}
 
 div.pager {
     display: flex;
@@ -351,5 +363,5 @@ div.pager {
         }
 
     .hidden-content {
-        display:none;
+        display:none !important;
     }

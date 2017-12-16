@@ -181,6 +181,7 @@
     <Compile Include="Mappers\SageMapper.cs" />
     <Compile Include="Mappers\ShoppingCartMapper.cs" />
     <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\EditBookModel.cs" />
     <Compile Include="Models\EditSageModel.cs" />
     <Compile Include="Models\PaginationModel.cs" />

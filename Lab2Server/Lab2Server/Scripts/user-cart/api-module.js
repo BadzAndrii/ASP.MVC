@@ -1,68 +1,73 @@
-﻿var CartModule = (function (redraw) {
+﻿var CartModule = (function (redrawCounter, redrawContent) {
+    /* stub user functions */
+    redrawCounter = redrawCounter || function () { console.warn("CartModule", "redrawCounter func is not set"); };
+    redrawContent = redrawContent || function () { console.warn("CartModule", "redrawContent func is not set"); };
+
+    /* private members */
     var $session = sessionStorage,
-        redraw = redraw && redraw.bind(this),
         $cartKey = "user@shopping-list.key",
         $noContentMsg = $("#no-content-msg"),
-        data = $session.getItem($cartKey) || [];
+        data = JSON.parse($session.getItem($cartKey)) || [];
 
-    function save() { $session.setItem($cartKey, data); }
+    function save() { $session.setItem($cartKey, JSON.stringify(data)); }
 
     function load() {
-        data = $session.getItem($cartKey) || [];
+        data = JSON.parse($session.getItem($cartKey)) || [];
 
-        return new Promise(function (resolve, reject) {
-
-            return $.ajax({
-                cache: true,
-                method: "GET",
-                dataType: "json",
-                url: "api/cart",
-                data: { cartData: data.map(i => { return { Key: i.Id, Value: i.Count }; }) }
-            })
-            .done(result => resolve(result))
-            .fail(reject);
+        return $.ajax({
+            cache: true,
+            method: "GET",
+            dataType: "json",
+            url: "api/cart",
+            data: { cartData: { Items: data } }
         });
     }
 
     function insert(id) {
         return new Promise(function (resolve, reject) {
-            try {
-                data.find(e => e.Book.Id === id).Count++;
-                resolve();
-            } catch (msg) {
-                data.push({ Count: 1, Book: { Id: id } });
-                reject();
-            }
-        });
+            if (data.find(e => e.Id === id))
+                data.find(e => e.Id === id).Count++;
+            else
+                data.push({ Id: id, Count: 1 });
+            resolve(data);
+        })
+        .then(save)
+        .then(() => redrawCounter(data.length));
     }
 
-    function update(id, conunt) {
+    function update(id, count) {
         return new Promise(function (resolve, reject) {
             try {
-                data.find(e => e.Book.Id === id).Count = count;
+                data.find(e => e.Id === id).Count = Number(count);
                 resolve();
             } catch (msg) {
                 reject();
             }
-        }).then(save);
+        })
+        .then(save)
+        .then(() => redrawCounter(data.length));
     }
 
     function remove(id) {
         return new Promise(function (resolve, reject) {
             try {
-                data.splice(data.findIndex(e => e.Book.Id === id));
+                data.splice(data.findIndex(e => e.Id === id), 1);
                 resolve();
             } catch (msg) {
                 reject();
             }
-        }).then(save);
+        })
+        .then(save)
+        .then(() => redrawCounter(data.length));
     }
 
+    /* module */
     return {
-        get: load,
-        refresh: () => redraw,
-        post: (id) => { return insert(id).then(redraw) },
-        put: (id, conunt) => { return update(id, conunt).then(redraw) },
-        delete: (id) => { return remove(id).then(redraw) },
+        get: () => { return load().then(redrawContent) },
+        post: insert,
+        put: update,
+        delete: remove,
+
+        refresh: () => redrawCounter(data.length),
     };
 });

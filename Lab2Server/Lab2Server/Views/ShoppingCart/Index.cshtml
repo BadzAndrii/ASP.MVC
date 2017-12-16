@@ -14,7 +14,24 @@
 </div>
 
 <script>
-    var toCartItem = function (item) {
+    var updateCartItem = function () {
+            var $input = $(this).prev("input.cart-form-control"),
+                count = Number($input.val()),
+                min = Number($input.prop("min")),
+                max = Number($input.prop("max"));
+
+            if (count >= min && count <= max) {
+                module.put($(this).closest("div.cart-form").data("book-id"), count);
+            }
+        },
+        deleteCartItem = function () {
+            module.delete($(this).closest("div.cart-form").data("book-id"));
+            
+            $(this).off("click");
+            $(this).prev("button").off("click");
+            $(this).closest("div.book-item").remove();
+        },
+        toCartItem = function (item) {
         return $("<div>")
             .addClass("book-item")
             .append(
@@ -30,27 +47,32 @@
             )
             .append(
             $("<div>")
-                .addClass("cart-form")
+                .data("book-id", item.Book.Id)
+                .addClass("cart-form pull-content-right")
                 .append($("<input>").addClass("cart-form-control").val(item.Count).prop("type", "number").prop("min", "1").prop("max", "999").prop("required", "required"))
-                .append($("<button>").html('<i class="fa fa-2x fa-check" aria-hidden="true"></i>').on("click", function (e) {
-                    updateCart(item.Book.Id, $(this).closest("input.cart-form-control").val());
-                }))
-                .append($("<button>").html('<i class="fa fa-2x fa-trash" aria-hidden="true"></i>').on("click", function (e) {
-                    removeFromCart(item.Book.Id);
-                }))
+                .append($("<button>").html('<i class="fa fa-2x fa-check" aria-hidden="true"></i>').on("click", updateCartItem))
+                .append($("<button>").html('<i class="fa fa-2x fa-trash" aria-hidden="true"></i>').on("click", deleteCartItem ))
             );
-    },
-        updateCartPageElements = function (cartItems) {
-            if (this.data && this.data.length && cartData) {
+        },
+        redrawCartPageElements = function (cartItems) {
+            if (cartItems && cartItems.length) {
                 $("#cart-container").html("");
                 $("#cart-container").append(cartItems.map(toCartItem));
+                
+                $("#no-content-msg").addClass("hidden-content");
+                $("#cart-container").removeClass("hidden-content");
             }
-            else
+            else {
+                $("#cart-container").addClass("hidden-content");
                 $("#no-content-msg").removeClass("hidden-content");
+            }
+                
         },
-        module = CartModule(updateCartPageElements);
+        module = CartModule(updateCartCounter, redrawCartPageElements);
 
-    $(function () { module.get().then(result => module.refresh(result)); });
+    module.refresh();
+
+    $(function () { module.get(); });
 </script>
 
 

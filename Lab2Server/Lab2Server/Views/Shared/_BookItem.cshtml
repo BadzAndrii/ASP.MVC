@@ -26,12 +26,8 @@
     }
     else
     {
-        <form method="post" action="@Url.Action("AddToCart","ShoppingCart", new { bookId = @Model.Id })">
-            <input type="range" min="1" max="10" value="1" name="count" />
-            <button>
-                <i class="fa fa-2x fa-cart-plus" aria-hidden="true"></i>
-            </button>
-            
-        </form>
+        <button onclick="addToCart(@Model.Id)">
+            <i class="fa fa-2x fa-cart-plus" aria-hidden="true"></i>
+        </button>
     }
 </div>

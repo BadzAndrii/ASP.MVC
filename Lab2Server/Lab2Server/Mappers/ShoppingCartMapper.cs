@@ -8,9 +8,9 @@ namespace Lab2Server.Mappers
 {
     public static class ShoppingCartMapper
     {
-        public static IEnumerable<ShoppingItemModel> ToShoppingCartModel(IEnumerable<Book> books, IDictionary<int,int> bookIdQuantity)
+        public static IEnumerable<ShoppingItemModel> ToShoppingCartModel(IEnumerable<Book> books, IEnumerable<CartItem> bookIdQuantity)
         {
-            return bookIdQuantity.Select(b => MapToShoppingCartItem(b.Key, b.Value, books.Single(x => x.Id == b.Key)));
+            return bookIdQuantity.Select(b => MapToShoppingCartItem(b.Id, b.Count, books.Single(x => x.Id == b.Id)));
         }
 
         private static ShoppingItemModel MapToShoppingCartItem(int bookId, int count, Book book)

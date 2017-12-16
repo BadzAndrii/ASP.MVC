@@ -18,14 +18,14 @@ namespace Lab2Server.Controllers.api
         }
 
         // GET: api/Cart
-        public IEnumerable<ShoppingItemModel> Get([FromBody] Dictionary<int, int> cartData)
+        public IEnumerable<ShoppingItemModel> Get([FromUri]GetCartData cartData)
         {
-            cartData = cartData ?? new Dictionary<int, int>();
+            cartData = cartData ?? new GetCartData();
 
-            var ids = cartData.Select(i => i.Key);
+            var ids = cartData.Items.Select(i => i.Id);
             var entities = _repository.Get(ids.ToArray());
 
-            return ShoppingCartMapper.ToShoppingCartModel(entities, cartData);
+            return ShoppingCartMapper.ToShoppingCartModel(entities, cartData.Items);
         }
     }
 }

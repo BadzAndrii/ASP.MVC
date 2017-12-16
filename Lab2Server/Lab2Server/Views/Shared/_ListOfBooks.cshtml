@@ -18,3 +18,10 @@ else
         <p><i class="fa fa-2x fa-info-circle"></i>Oops, we are sorry.<br/><sup>There are no books added yet.</sup></p>
     </div>
 }
+<script>
+    var cartAPI = CartModule(updateCartCounter, stub);
+
+    function addToCart(id) { cartAPI.post(id); }
+
+    $(function () { cartAPI.refresh(); });
+</script>
