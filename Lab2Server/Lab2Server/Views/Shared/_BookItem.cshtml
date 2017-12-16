@@ -17,7 +17,7 @@
 
     @if (Request.IsAuthenticated)
     {
-        <a href="@Url.Action("Edit", new { id = Model.Id })">
+        <a href="javascript:void(0)" class="open-book-dialog" data-id="@Model.Id">
             <i class="fa fa-2x fa-edit"></i>
         </a>
         <a href="@Url.Action("Delete", new { id = Model.Id })">

@@ -192,6 +192,19 @@ form div.form-horizontal {
     margin: 10px 50px;
 }
 
+div.ui-dialog div.form-horizontal {
+    margin: 10px;
+}
+
+    div.ui-dialog div.form-horizontal .form-control {
+        width:200px;
+        margin:0 0 10px 0;
+    }
+
+    div.ui-dialog div.form-horizontal select.form-control {
+        width: 206px;
+    }
+
 form span.field-validation-error span {
     display: inline-block;
     width: 400px;
@@ -224,9 +237,10 @@ form button {
     padding: 5px 10px;
 }
 
-form div.form-horizontal {
+div.form-horizontal {
     display: flex;
     justify-content: space-between;
+    align-content:center;
 }
 
 div.preview-photo {

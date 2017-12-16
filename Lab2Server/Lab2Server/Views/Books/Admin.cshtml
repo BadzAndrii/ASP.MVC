@@ -7,9 +7,99 @@
 <h2>@ViewBag.Title <sup>admin</sup></h2>
 
 <p>
-    <a href="@Url.Action("Create")">
+    <a href="javascript:void(0)" class="open-book-dialog" data-id="0">
         <i class="fa fa-plus-square"></i> Create
     </a>
 </p>
 
 @Html.Partial("_ListOfBooks", Model)
+
+@{
+    var model = new EditBookModel();
+    <div id="edit-book-modal" title="Edit book">
+        <div class="form-horizontal">
+            <input type="hidden" id="Id" name="Id" value="" />
+            <div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="text" value="" id="Name" name="Name" class="form-control required" placeholder="Name" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <textarea id="Description" name="Description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="text" value="" id="Year" name="Year" min="1900" max="@DateTime.UtcNow.Year" class="form-control required" placeholder="Year" required />
+                    </div>
+                </div>
+
+                @Html.Partial("EditorTemplates/_MultiSelect", new MultiSelectList(new dynamic[] { }))
+                @Html.Partial("EditorTemplates/_PhotoUpload", model.PhotoUpload)
+            </div>
+            <div class="preview-photo"/>
+            @*<img alt="photo-preview" class="form-control preview-photo" width="200" src="" />*@
+        </div>
+        
+        <script>
+            $(function () {
+                var $editBook = $("#edit-book-modal"),
+                    populateData = (id) => {
+                        id = Number(id);
+
+                        $editBook.first("input#Id").val(id);
+
+                        return $.get("/api/books/" + id)
+                            .then((bookData) => {
+                                console.log(bookData);
+                                $editBook.find("input#Name").val(bookData.Name);
+                                $editBook.find("textarea#Description").val(bookData.Description);
+                                $editBook.find("input#Year").val(bookData.Year);
+                                $editBook.find("div.preview-photo").css({
+                                    background: "url('" + bookData.Photo || "/Content/no-book-preview.png" + "')",
+                                    "background-repeat": "no-repeat",
+                                    "background-size": "cover",
+                                    width: "400px",
+                                });
+
+                                var select = $editBook.find("select.form-control");
+
+                                select.html(
+                                    bookData.Authors
+                                        .map((a) => {
+                                            return a.Selected
+                                                ? "<option value='" + a.Value + "' selected>" + a.Text + "</option>"
+                                                : "<option value='" + a.Value + "' >" + a.Text + "</option>"
+                                        })
+                                        .reduce((acc, curr) => acc + curr));
+                            });
+                    },
+                    openDialog = (e) => {
+                        var id = $(e.currentTarget).data("id");
+
+                        populateData(id)
+                            .then(() => { $editBook.dialog({ title: id ? "Edit" : "Create" }).dialog("open"); });
+                    };
+                
+                $(document).on("click", ".open-book-dialog", openDialog);
+
+                $editBook
+                    .dialog({
+                        modal: true,
+                        autoOpen: false,
+                        width: 600,
+                        height: 450,
+                        buttons: {
+                            "Save": () => { },
+                            Cancel: () => { $editBook.dialog("close"); }
+                        },
+                        close: () => { $editBook.find(".required").removeClass("ui-state-error").val(""); }
+                    });
+            });
+        </script>
+    </div>
+        }

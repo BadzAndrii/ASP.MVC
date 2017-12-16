@@ -64,5 +64,18 @@ namespace Lab2Server.Mappers
         {
             return books.Select( b => b.MapToBookModel(b.Sages.Select(s => s.Name)) ).ToList();
         }
+
+        public static dynamic MapToDynamiBookModel(this Book book, IDictionary<int, string> authors)
+        {
+            return new
+            {
+                Id = book.Id,
+                Year = book.Year,
+                Name = book.Name,
+                Description = book.Description,
+                Photo = book.Photo?.ToImageSource() ?? "/Content/no-book-preview.png",
+                Authors = authors.Select(a => new { Value = a.Key.ToString(), Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) }),
+            };
+        }
     }
 }

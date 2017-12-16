@@ -5,10 +5,13 @@
 <div class="form-group">
     @Html.LabelForModel(new { @class = "control-label required" })
     <div class="col-md-10">
-        <select multiple="multiple" name="SelectedAuthorsIds" required="required" data-val="true" data-val-required="Требуется поле Authors." >
-            @foreach (SelectListItem item in Model.Items)
+        <select multiple="multiple" name="SelectedAuthorsIds" class="form-control" required="required" data-val="true" data-val-required="Требуется поле Authors." >
+            @if (Model != null)
             {
-                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                foreach (SelectListItem item in Model.Items)
+                {
+                    <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                }
             }
         </select>
     </div>

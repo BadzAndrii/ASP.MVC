@@ -8,11 +8,18 @@
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript" src="~/Scripts/user-cart/api-module.js"></script>
+    
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
     <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/Content/app-styles.css" />
+    
+    <link rel="stylesheet" href="~/Content/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui.structure.min.css" />
 </head>
 <body>
-    @{ var itemsInCart = Session[Constants.UserCart] != null ? (Session[Constants.UserCart] as Dictionary<int, int>).Count : 0; }
+    @{ var itemsInCart = 0; }
     <div class="header">
         <div class="logo">
             <a href="#">

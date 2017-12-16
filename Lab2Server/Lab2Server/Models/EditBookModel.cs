@@ -6,7 +6,6 @@ namespace Lab2Server.Models
 {
     public class EditBookModel : BookModel
     {
-
         [UIHint("_MultiSelect")]
         [Display(AutoGenerateField = false)]
         public new MultiSelectList Authors { get; set; }
