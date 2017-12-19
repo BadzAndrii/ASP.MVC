@@ -7,6 +7,7 @@ using Lab2Server.Models;
 using Lab2Server.Entities;
 using Lab2Server.Extensions;
 using Lab2Server.Comparers;
+using Lab2Server.Models.api;
 
 namespace Lab2Server.Mappers
 {
@@ -27,6 +28,18 @@ namespace Lab2Server.Mappers
 
             book.Sages.AddRangeExceptExisting(authors, new KeyEqulityComparer());
             book.Photo = model.PhotoUpload?.InputStream.ToBlob() ?? book.Photo;
+
+            return book;
+        }
+
+        public static Book MapToBook(this SaveBookModel model, Book book, List<Sage> authors)
+        {
+            book.Name = model.Name;
+            book.Year = model.Year;
+            book.Description = model.Description;
+
+            book.Sages.AddRangeExceptExisting(authors, new KeyEqulityComparer());
+            book.Photo = model.PhotoUpload ?? book.Photo;
 
             return book;
         }
@@ -67,14 +80,20 @@ namespace Lab2Server.Mappers
 
         public static dynamic MapToDynamiBookModel(this Book book, IDictionary<int, string> authors)
         {
-            return new
+            return new DetailedBookModel
             {
                 Id = book.Id,
                 Year = book.Year,
                 Name = book.Name,
                 Description = book.Description,
                 Photo = book.Photo?.ToImageSource() ?? "/Content/no-book-preview.png",
-                Authors = authors.Select(a => new { Value = a.Key.ToString(), Text = a.Value, Selected = book.Sages.Any(s => s.Id == a.Key) }),
+                Authors = authors
+                    .Select(a => new DetailedBookModel.MultiSelectModel
+                    {
+                        Text = a.Value,
+                        Selected = book.Sages.Any(s => s.Id == a.Key),
+                        Value = a.Key.ToString(),
+                    }).ToArray()
             };
         }
     }

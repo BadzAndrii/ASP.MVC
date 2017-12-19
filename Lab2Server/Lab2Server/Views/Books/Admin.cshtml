@@ -1,5 +1,5 @@
 ﻿@using Lab2Server.Models
-@model PaginationModel<BookModel>
+
 @{
     ViewBag.Title = "Books";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,39 +12,34 @@
     </a>
 </p>
 
-@Html.Partial("_ListOfBooks", Model)
+@Html.Partial("_ListOfBooks")
 
 @{
     var model = new EditBookModel();
     <div id="edit-book-modal" title="Edit book">
-        <div class="form-horizontal">
-            <input type="hidden" id="Id" name="Id" value="" />
-            <div>
-                <div class="form-group">
-                    <div class="col-md-10">
+        <form id="book-dialog-form">
+            <div class="form-horizontal">
+                <input type="hidden" id="Id" name="Id" value="" />
+                <div>
+                    <div class="form-group">
                         <input type="text" value="" id="Name" name="Name" class="form-control required" placeholder="Name" required />
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="form-group">
                         <textarea id="Description" name="Description" class="form-control" placeholder="Description"></textarea>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="form-group">
                         <input type="text" value="" id="Year" name="Year" min="1900" max="@DateTime.UtcNow.Year" class="form-control required" placeholder="Year" required />
                     </div>
+                    @Html.Partial("EditorTemplates/_MultiSelect", new MultiSelectList(new dynamic[] { }))
+                    @Html.Partial("EditorTemplates/_PhotoUpload", model.PhotoUpload)
                 </div>
-
-                @Html.Partial("EditorTemplates/_MultiSelect", new MultiSelectList(new dynamic[] { }))
-                @Html.Partial("EditorTemplates/_PhotoUpload", model.PhotoUpload)
+                <div class="preview-photo">
+                    <img alt="" class="form-control" src="" />
+                </div>
             </div>
-            <div class="preview-photo"/>
-            @*<img alt="photo-preview" class="form-control preview-photo" width="200" src="" />*@
-        </div>
-        
+        </form>
+
+
         <script>
             $(function () {
                 var $editBook = $("#edit-book-modal"),
@@ -59,12 +54,7 @@
                                 $editBook.find("input#Name").val(bookData.Name);
                                 $editBook.find("textarea#Description").val(bookData.Description);
                                 $editBook.find("input#Year").val(bookData.Year);
-                                $editBook.find("div.preview-photo").css({
-                                    background: "url('" + bookData.Photo || "/Content/no-book-preview.png" + "')",
-                                    "background-repeat": "no-repeat",
-                                    "background-size": "cover",
-                                    width: "400px",
-                                });
+                                $editBook.find("img.form-control").prop({ src: bookData.Photo || "/Content/no-book-preview.png" });
 
                                 var select = $editBook.find("select.form-control");
 
@@ -83,9 +73,29 @@
 
                         populateData(id)
                             .then(() => { $editBook.dialog({ title: id ? "Edit" : "Create" }).dialog("open"); });
+                    },
+                    deleteDialog = (e) => {
+                        var id = $(e.currentTarget).data("id");
+                        $.ajax({
+                            url: "/api/books/" + id,
+                            type: "DELETE"
+                        }).then(reLoadBooks);
+                    },
+                    createRequestBody = () => {
+                        var requestBody = new FormData();
+                        
+                        requestBody.append("Id", $editBook.find("#Id").val());
+                        requestBody.append("Name", $editBook.find("#Name").val());
+                        requestBody.append("Description", $editBook.find("#Description").val());
+                        requestBody.append("Year", $editBook.find("#Year").val());
+                        requestBody.append("SelectedAuthorsIds", $editBook.find("#SelectedAuthorsIds").val());
+                        requestBody.append("PhotoUpload", $editBook.find("#PhotoUpload")[0].files[0]);
+
+                        return requestBody;
                     };
                 
                 $(document).on("click", ".open-book-dialog", openDialog);
+                $(document).on("click", ".delete-book-dialog", deleteDialog);
 
                 $editBook
                     .dialog({
@@ -94,7 +104,21 @@
                         width: 600,
                         height: 450,
                         buttons: {
-                            "Save": () => { },
+                            "Save": () => {
+                                var id = Number($editBook.first("input#Id").val()),
+                                    requestBody = createRequestBody();
+
+                                $.ajax({
+                                    url: url = id ? "/api/books/" + id : "/api/books/",
+                                    type: id ? "PUT" : "POST",
+                                    data: requestBody,
+                                    processData: false,
+                                    contentType: false,
+                                })
+                                .then(reLoadBooks);
+
+                                $editBook.dialog("close");
+                            },
                             Cancel: () => { $editBook.dialog("close"); }
                         },
                         close: () => { $editBook.find(".required").removeClass("ui-state-error").val(""); }
@@ -102,4 +126,4 @@
             });
         </script>
     </div>
-        }
+}

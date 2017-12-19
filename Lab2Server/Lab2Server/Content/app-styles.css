@@ -193,7 +193,7 @@ form div.form-horizontal {
 }
 
 div.ui-dialog div.form-horizontal {
-    margin: 10px;
+    margin: 0 10px;
 }
 
     div.ui-dialog div.form-horizontal .form-control {
@@ -245,17 +245,20 @@ div.form-horizontal {
 
 div.preview-photo {
     display: inline-block;
+    
+    width:300px;
+    max-width:300px;
+
+    border: 2px solid white;
     background-color: white;
-    border: 1px solid silver;
-    border-bottom: 1px solid rgba(0,0,0,.35);
+    box-shadow: 0 1px 5px;
 }
 
     div.preview-photo > img {
-        height: auto;
-        min-width: 250px;
-        max-width: 250px;
-        box-shadow: inset 0px 1px 3px rgba(0,0,0,0.35);
+        width: 300px !important;
+        height: auto !important;
         background-color: black;
+        box-shadow: inset 0px 1px 3px rgba(0,0,0,0.35);
     }
 
     div.preview-photo p {

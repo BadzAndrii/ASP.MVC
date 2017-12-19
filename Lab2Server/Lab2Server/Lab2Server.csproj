@@ -60,6 +60,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MultipartDataMediaFormatter, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultipartDataMediaFormatter.V2.2.0.0\lib\net45\MultipartDataMediaFormatter.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -189,6 +192,9 @@
     <Compile Include="Mappers\BookMapper.cs" />
     <Compile Include="Mappers\SageMapper.cs" />
     <Compile Include="Mappers\ShoppingCartMapper.cs" />
+    <Compile Include="Models\api\DetailedBookModel.cs" />
+    <Compile Include="Models\api\InMemoryMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Models\api\SaveBookModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\EditBookModel.cs" />

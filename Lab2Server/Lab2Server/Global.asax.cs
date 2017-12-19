@@ -13,6 +13,8 @@ using Lab2Server.Repositories;
 using Lab2Server.App_Start;
 using System.Web.Http;
 using SimpleInjector.Integration.WebApi;
+using MultipartDataMediaFormatter;
+using MultipartDataMediaFormatter.Infrastructure;
 
 namespace Lab2Server
 {
@@ -41,6 +43,7 @@ namespace Lab2Server
             container.Verify();
 #endif
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter(new MultipartFormatterSettings()));
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
 
