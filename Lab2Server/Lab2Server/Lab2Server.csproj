@@ -192,8 +192,10 @@
     <Compile Include="Mappers\BookMapper.cs" />
     <Compile Include="Mappers\SageMapper.cs" />
     <Compile Include="Mappers\ShoppingCartMapper.cs" />
+    <Compile Include="Models\api\DetailedSageModel.cs" />
     <Compile Include="Models\api\DetailedBookModel.cs" />
     <Compile Include="Models\api\InMemoryMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Models\api\SaveSageModel.cs" />
     <Compile Include="Models\api\SaveBookModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\CartItem.cs" />

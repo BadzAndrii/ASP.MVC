@@ -7,14 +7,17 @@
 
 <div class="book-item">
     <img class="book-picture" alt="author-picture" src="@imageSource" />
-    <div class="cart-book-item">
+    <div>
         <p>Name: <label><b>@Model.Name</b></label></p>
         <p>City: <label><b><u>@Model.City</u></b></label></p>
         <p>Age(s): <label><b><i>@Model.Age</i></b></label></p>
     </div>
-    
+
     @if (Request.IsAuthenticated)
     {
+        <a href="javascript:void(0)" class="open-book-dialog" data-id="@Model.Id">
+            <i class="fa fa-2x fa-edit"></i>
+        </a>
         <a href="@Url.Action("Edit", new { id = Model.Id })">
             <i class="fa fa-2x fa-edit"></i>
         </a>
