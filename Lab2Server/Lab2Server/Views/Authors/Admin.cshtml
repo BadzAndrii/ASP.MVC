@@ -1,25 +1,10 @@
-﻿@*@using Lab2Server.Models
-    @model PaginationModel<SageModel>
-    @{
-        ViewBag.Title = "Sages";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    <h2>@ViewBag.Title <sup>admin</sup></h2>
-
-    <p>
-        <a href="@Url.Action("Create")">
-            <i class="fa fa-plus-square"></i> Create
-        </a>
-    </p>
-
-    @Html.Partial("_ListOfSages", Model)*@
-
-@using Lab2Server.Models
+﻿@using Lab2Server.Models
 
 @{
     ViewBag.Title = "Sages";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>@ViewBag.Title <sup>admin</sup></h2>
 
 <p>
@@ -55,7 +40,6 @@
             </div>
         </form>
 
-
         <script>
             $(function () {
                 var $editSage = $("#edit-book-modal"),
@@ -65,23 +49,11 @@
                         $editSage.first("input#Id").val(id);
 
                         return $.get("/api/authors/" + id)
-                            .then((bookData) => {
-                                console.log(bookData);
+                            .then((sageData) => {
                                 $editSage.find("input#Name").val(sageData.Name);
                                 $editSage.find("textarea#City").val(sageData.City);
                                 $editSage.find("input#Age").val(sageData.Age);
                                 $editSage.find("img.form-control").prop({ src: sageData.Photo || "/Content/no-sage-preview.png" });
-
-                                var select = $editSage.find("select.form-control");
-
-                                select.html(
-                                    sageData.Authors
-                                        .map((a) => {
-                                            return a.Selected
-                                                ? "<option value='" + a.Value + "' selected>" + a.Text + "</option>"
-                                                : "<option value='" + a.Value + "' >" + a.Text + "</option>"
-                                        })
-                                        .reduce((acc, curr) => acc + curr));
                             });
                     },
                     openDialog = (e) => {

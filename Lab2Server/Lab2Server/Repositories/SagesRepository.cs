@@ -17,7 +17,9 @@ namespace Lab2Server.Repositories
 
         public IEnumerable<SageDTO> GetAuthorDTOs()
         {
-            return _context.GetData<Sage>().Select(b => new SageDTO
+            return _context.GetData<Sage>()
+                .ToList()
+                .Select(b => new SageDTO
             {
                 Id = b.Id,
                 Name = b.Name,

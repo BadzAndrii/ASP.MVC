@@ -39,7 +39,6 @@
             </div>
         </form>
 
-
         <script>
             $(function () {
                 var $editBook = $("#edit-book-modal"),
@@ -65,7 +64,7 @@
                                                 ? "<option value='" + a.Value + "' selected>" + a.Text + "</option>"
                                                 : "<option value='" + a.Value + "' >" + a.Text + "</option>"
                                         })
-                                        .reduce((acc, curr) => acc + curr));
+                                        .reduce((acc, curr) => acc + curr, ""));
                             });
                     },
                     openDialog = (e) => {

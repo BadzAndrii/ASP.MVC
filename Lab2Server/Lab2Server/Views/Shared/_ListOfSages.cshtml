@@ -29,47 +29,32 @@
             cartAPI.post(id);
         },
         toSageItem = function (item) {
-            var isAdmin = "@Request.IsAuthenticated".toUpperCase() === "TRUE";
-            var sageItem = $("<div>")
-                .addClass("book-item")
-                .append(
-                $("<img>")
-                    .addClass("book-picture")
-                    .prop("src", item.Photo || "/Content/no-sage-preview.png")
-                )
-                .append(
-                $("<div>")
-                    .addClass("cart-book-item")
-                    .append($("<p>").html("Name: <label><b>" + item.Name + "</b></label>"))
-                    .append($("<p>").html("Age: <label><b><u>" + item.Age + "</u></b></label>"))
-                    .append($("<p>").html("City(s): <label><b>" + item.City + "</b></label>"))
-                );
-
-            if (isAdmin) {
-                return sageItem
+            return $("<div>")
+                    .addClass("book-item")
                     .append(
-                    $("<a>")
-                        .data("id", item.Id)
-                        .addClass("open-book-dialog")
-                        .prop("href", "javascript:void(0)")
-                        .html("<i class='fa fa-2x fa-edit'></i>")
+                        $("<img>")
+                            .addClass("book-picture")
+                            .prop("src", item.Photo || "/Content/no-sage-preview.png")
+                    )
+                    .append(
+                        $("<div>")
+                            .addClass("cart-book-item")
+                            .append($("<p>").html("Name: <label><b>" + item.Name + "</b></label>"))
+                            .append($("<p>").html("Age: <label><b><u>" + item.Age + "</u></b></label>"))
+                            .append($("<p>").html("City(s): <label><b>" + item.City + "</b></label>"))
+                    )
+                    .append(
+                        $("<a>")
+                            .data("id", item.Id)
+                            .addClass("open-book-dialog")
+                            .prop("href", "javascript:void(0)")
+                            .html("<i class='fa fa-2x fa-edit'></i>")
                     ).append(
-                    $("<a>")
-                        .data("id", item.Id)
-                        .addClass("delete-sage-dialog")
-                        .prop("href", "javascript:void(0)")
-                        .html("<i class='fa fa-2x fa-trash'></i>")
-                    );
-            }
-            else {
-                return sageItem
-                    .append(
-                    $("<button>")
-                        .data("id", item.Id)
-                        .addClass("add-to-cart")
-                        .html("<i class='fa fa-2x fa-cart-plus' aria-hidden='true'></i>")
-                    );
-            }
+                        $("<a>")
+                            .data("id", item.Id)
+                            .addClass("delete-sage-dialog")
+                            .prop("href", "javascript:void(0)")
+                            .html("<i class='fa fa-2x fa-trash'></i>"));
         }
 
     function reLoadAuthors() {
@@ -80,9 +65,5 @@
             });
     }
 
-    $(function () {
-        cartAPI.refresh();
-        $(document).on("click",".add-to-cart", addToCart)
-        reLoadAuthors();
-    });
+    $(function () { reLoadAuthors(); })
 </script>

@@ -13,7 +13,9 @@ namespace Lab2Server.Repositories
 
         public IEnumerable<BookDTO> GetBookDTOs()
         {
-            return _context.GetData<Book>().Select(b => new BookDTO
+            return _context.GetData<Book>()
+                .ToList()
+                .Select(b => new BookDTO
             {
                 Id = b.Id,
                 Name = b.Name,
