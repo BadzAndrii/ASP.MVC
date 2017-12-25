@@ -1,17 +1,12 @@
 ﻿using Lab2Server.Entities;
 using Lab2Server.Extensions;
 using Lab2Server.Mappers;
-using Lab2Server.Models;
 using Lab2Server.Models.api;
 using Lab2Server.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 

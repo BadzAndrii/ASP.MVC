@@ -1,10 +1,6 @@
-﻿using Lab2Server.Models;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Lab2Server.Repositories;
-using Lab2Server.Mappers;
 using Lab2Server.Entities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Lab2Server.Controllers
 {
@@ -22,20 +18,7 @@ namespace Lab2Server.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return RedirectToAction(User.Identity.IsAuthenticated ? "Admin" : "Shop");
-        }
-
-        [HttpGet]
-        public ActionResult Shop(int? page = 1, int? count = 10)
-        {
-            return View();
-        }
-
-        //FOR ADMIN
-        [Authorize, HttpGet]
-        public ActionResult Admin(int? page = 1, int? count = 10)
-        {
-            return View();
+            return View(User.Identity.IsAuthenticated ? "Admin" : "Shop");
         }
     }
 }
