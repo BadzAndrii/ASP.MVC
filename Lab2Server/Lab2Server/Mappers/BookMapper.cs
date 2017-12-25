@@ -78,7 +78,7 @@ namespace Lab2Server.Mappers
             return books.Select( b => b.MapToBookModel(b.Sages.Select(s => s.Name)) ).ToList();
         }
 
-        public static dynamic MapToDynamiBookModel(this Book book, IDictionary<int, string> authors)
+        public static DetailedBookModel MapToDynamiBookModel(this Book book, IDictionary<int, string> authors)
         {
             return new DetailedBookModel
             {

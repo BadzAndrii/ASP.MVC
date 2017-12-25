@@ -18,6 +18,7 @@ namespace Lab2Server.Mappers
             //sage.Photo = model.PhotoUpload?.InputStream.ToBlob() ?? sage.Photo;
             return sage;
         }
+
         public static Sage MapToSage(this EditSageModel model, Sage sage)
         {
             MapToSage(model as SageModel, sage);
@@ -26,6 +27,7 @@ namespace Lab2Server.Mappers
 
             return sage;
         }
+
         public static Sage MapToSage(this SaveSageModel model, Sage sage)
         {
             sage.Name = model.Name;
@@ -51,6 +53,7 @@ namespace Lab2Server.Mappers
                 Photo = sage.Photo.ToImageSource() ?? "/Content/no-sage-preview.png"
             };
         }
+
         public static EditSageModel MapToEditSageModel(this Sage sage)
         {
             return new EditSageModel
@@ -62,11 +65,13 @@ namespace Lab2Server.Mappers
                 Photo = sage.Photo.ToImageSource() ?? "/Content/no-sage-preview.png"
             };
         }
+
         public static List<SageModel> MapToListSageModel(this List<Sage> sages)
         {
             return sages.Select(s => s.MapToSageModel()).ToList();
         }
-        public static dynamic MapToDynamiSageModel(this Sage sage)
+
+        public static DetailedSageModel MapToDynamiSageModel(this Sage sage)
         {
             return new DetailedSageModel
             {
@@ -75,7 +80,6 @@ namespace Lab2Server.Mappers
                 Name = sage.Name,
                 City = sage.City,
                 Photo = sage.Photo?.ToImageSource() ?? "/Content/no-sage-preview.png",
-
             };
         }
     }
