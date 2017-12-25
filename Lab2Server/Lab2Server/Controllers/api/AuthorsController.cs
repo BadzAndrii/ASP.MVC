@@ -1,19 +1,15 @@
-﻿using Lab2Server.Entities;
-using Lab2Server.Extensions;
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
 using Lab2Server.Mappers;
-using Lab2Server.Models;
+using Lab2Server.Entities;
+using Lab2Server.Extensions;
 using Lab2Server.Models.api;
 using Lab2Server.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace Lab2Server.Controllers.api
 {
@@ -25,13 +21,6 @@ namespace Lab2Server.Controllers.api
         {
             _sageRepository = sageRepository;
         }
-
-
-        //// GET api/<controller>
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
         // GET api/<controller>
         public IEnumerable<SageDTO> Get()
@@ -47,25 +36,13 @@ namespace Lab2Server.Controllers.api
             });
         }
 
-        //// GET api/<controller>/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
         // GET api/<controller>/5
         public DetailedSageModel Get(int id)
         {
             var sage = _sageRepository.Get(id) ?? new Sage();
-            var authors = _sageRepository.GetAuthorsDictionary();
 
             return sage.MapToDynamiSageModel();
         }
-
-        //// POST api/<controller>
-        //public void Post([FromBody]string value)
-        //{
-        //}
 
         // POST api/<controller>
         public async Task Post()
@@ -79,19 +56,13 @@ namespace Lab2Server.Controllers.api
             _sageRepository.Save(sage);
         }
 
-
-        //// PUT api/<controller>/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
         // PUT api/<controller>/5
         public async Task Put(int id)
         {
             var sage = _sageRepository.Get(id);
 
             var model = await ReadFormDataToSaveSageModel();
-            model.Id = id;
+                model.Id = id;
 
             model.MapToSage(sage);
 
