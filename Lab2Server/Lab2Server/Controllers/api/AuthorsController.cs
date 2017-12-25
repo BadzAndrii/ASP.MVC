@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Http;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ using Lab2Server.Entities;
 using Lab2Server.Extensions;
 using Lab2Server.Models.api;
 using Lab2Server.Repositories;
+using Lab2Server.Repositories.DTOs;
 
 namespace Lab2Server.Controllers.api
 {
@@ -25,15 +25,7 @@ namespace Lab2Server.Controllers.api
         // GET api/<controller>
         public IEnumerable<SageDTO> Get()
         {
-            //TODO: move to mapper
-            return _sageRepository.List(1, 1000).Select(b => new SageDTO
-            {
-                Id = b.Id,
-                Name = b.Name,
-                City = b.City,
-                Age = b.Age,
-                Photo = b.Photo.ToImageSource() ?? "/Content/no-sage-preview.png",
-            });
+            return _sageRepository.GetAuthorDTOs();
         }
 
         // GET api/<controller>/5

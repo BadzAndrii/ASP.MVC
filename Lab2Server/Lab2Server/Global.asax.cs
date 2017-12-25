@@ -34,7 +34,7 @@ namespace Lab2Server
 
             // Register your types, for instance:
             container.Register<ISageRepository, SagesRepository>();
-            container.Register<IRepository<Book>, BooksRepository>();
+            container.Register<IBookRepository, BooksRepository>();
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

@@ -7,8 +7,8 @@ namespace Lab2Server.Controllers
     {
         private readonly Dictionary<string, string> _menu = new Dictionary<string, string>
         {
-            { "Books", "/books/admin" },
-            { "Authors", "/authors/admin" }
+            { "Books", "/books" },
+            { "Authors", "/authors" }
         };
 
         // GET: Home
@@ -19,7 +19,7 @@ namespace Lab2Server.Controllers
 
         public ActionResult Menu()
         {
-            return View("_MenuLinks", User.Identity.IsAuthenticated ? _menu : new Dictionary<string, string> { { "Books", "/books/shop" } });
+            return View("_MenuLinks", User.Identity.IsAuthenticated ? _menu : new Dictionary<string, string> { { "Books", "/books" } });
         }
     }
 }

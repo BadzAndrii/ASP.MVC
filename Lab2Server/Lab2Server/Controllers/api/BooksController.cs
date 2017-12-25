@@ -1,23 +1,25 @@
-﻿using Lab2Server.Entities;
-using Lab2Server.Extensions;
-using Lab2Server.Mappers;
-using Lab2Server.Models.api;
-using Lab2Server.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Web.Http;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
+using System.Collections.Generic;
+
+using Lab2Server.Mappers;
+using Lab2Server.Entities;
+using Lab2Server.Extensions;
+using Lab2Server.Models.api;
+using Lab2Server.Repositories;
+using Lab2Server.Repositories.DTOs;
 
 namespace Lab2Server.Controllers.api
 {
     public class BooksController : ApiController
     {
         private readonly ISageRepository _sageRepository;
-        private readonly IRepository<Book> _booksRepository;
+        private readonly IBookRepository _booksRepository;
 
-        public BooksController(ISageRepository sageRepository, IRepository<Book> booksRepository)
+        public BooksController(ISageRepository sageRepository, IBookRepository booksRepository)
         {
             _sageRepository = sageRepository;
             _booksRepository = booksRepository;
@@ -26,16 +28,7 @@ namespace Lab2Server.Controllers.api
         // GET api/<controller>
         public IEnumerable<BookDTO> Get()
         {
-            //TODO: move to mapper
-            return _booksRepository.List(1, 1000).Select(b => new BookDTO
-            {
-                Id = b.Id,
-                Name = b.Name,
-                Year = b.Year,
-                Description = b.Description,
-                Photo = b.Photo.ToImageSource() ?? "/Content/no-book-preview.png",
-                Authors = string.Join(",", b.Sages.Select(s => s.Name))
-            });
+            return _booksRepository.GetBookDTOs();
         }
 
         // GET api/<controller>/5

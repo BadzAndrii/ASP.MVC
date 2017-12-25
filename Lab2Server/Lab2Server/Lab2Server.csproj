@@ -209,6 +209,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\BooksRepository.cs" />
+    <Compile Include="Repositories\DTOs\BookDTO.cs" />
+    <Compile Include="Repositories\DTOs\SageDTO.cs" />
+    <Compile Include="Repositories\IBookRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ISageRepository.cs" />
     <Compile Include="Repositories\SagesRepository.cs" />

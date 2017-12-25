@@ -4,15 +4,14 @@ using System.Collections.Generic;
 
 using Lab2Server.Models;
 using Lab2Server.Mappers;
-using Lab2Server.Entities;
 using Lab2Server.Repositories;
 
 namespace Lab2Server.Controllers.api
 {
     public class CartController : ApiController
     {
-        IRepository<Book> _repository;
-        public CartController(IRepository<Book> repository)
+        IBookRepository _repository;
+        public CartController(IBookRepository repository)
         {
             _repository = repository;
         }
