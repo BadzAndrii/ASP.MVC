@@ -1,0 +1,33 @@
+﻿@using Lab2Server.Models
+@model BookModel
+@{ 
+    Layout = null;
+    var imageSource = @Model.Photo ?? "/Content/no-book-preview.png";
+}
+
+<div class="book-item">
+    <img class="book-picture" alt="book-picture" src="@imageSource" />
+    <div>
+        <p>Name: <label><b>@Model.Name</b></label></p>
+        <p>Pulished: <label><b><u>@Model.Year</u></b></label></p>
+        <p>Author(s): <label><b><i>@Model.Authors</i></b></label></p>
+    </div>
+    
+    <p class="book-description">Decription:<br/>@Model.Description</p>
+
+    @if (Request.IsAuthenticated)
+    {
+        <a href="javascript:void(0)" class="open-book-dialog" data-id="@Model.Id">
+            <i class="fa fa-2x fa-edit"></i>
+        </a>
+        <a href="@Url.Action("Delete", new { id = Model.Id })">
+            <i class="fa fa-2x fa-trash"></i>
+        </a>
+    }
+    else
+    {
+        <button onclick="addToCart(@Model.Id)">
+            <i class="fa fa-2x fa-cart-plus" aria-hidden="true"></i>
+        </button>
+    }
+</div>

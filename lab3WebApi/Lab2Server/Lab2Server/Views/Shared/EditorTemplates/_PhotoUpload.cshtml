@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+<div class="upload-photo form-group">
+    @Html.LabelForModel(new { @class = "control-label" })
+    <div class="col-md-10">
+        <input type="file" id="PhotoUpload" name="PhotoUpload" accept=".png, .jpeg, .jpg" />
+        <script>
+            $("div.upload-photo input[name=PhotoUpload]")
+                .off("click").on("click", function () { this.src = ""; })
+                .off("change").on("change", function () {
+                    var filename = (this.files[0] || { name: "" }).name;
+                    if (filename && ["jpeg", "jpg", "png"].indexOf(filename.split('.').pop().toLowerCase()) >= 0) {
+                        return true;
+                    }
+                    alert("Требуемое расширение файла: jpeg / jpg / png ");
+                    return false;
+                });
+        </script>
+        @Html.ValidationSummary()
+    </div>
+</div>

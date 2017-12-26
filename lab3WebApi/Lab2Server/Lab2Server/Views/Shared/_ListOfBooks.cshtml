@@ -1,0 +1,71 @@
+﻿<div id="books-list" class="books-list"></div>
+
+<script>
+    var cartAPI = CartModule(updateCartCounter, stub),
+        addToCart = function (e) {
+            var id = $(e.currentTarget).data("id");
+            cartAPI.post(id);
+        },
+        toBookItem = function (item) {
+            var isAdmin = "@Request.IsAuthenticated".toUpperCase() === "TRUE";
+            var bookItem = $("<div>")
+                .addClass("book-item")
+                .append(
+                $("<img>")
+                    .addClass("book-picture")
+                    .prop("src", item.Photo || "/Content/no-book-preview.png")
+                )
+                .append(
+                $("<div>")
+                    .addClass("cart-book-item")
+                    .append($("<p>").html("Name: <label><b>" + item.Name + "</b></label>"))
+                    .append($("<p>").html("Pulished: <label><b><u>" + item.Year + "</u></b></label>"))
+                    .append($("<p>").html("Author(s): <label><b>" + item.Authors + "</b></label>"))
+                )
+                .append(
+                $("<p>")
+                    .addClass("book-description")
+                    .html("Decription:<br/>" + item.Description)
+                );
+
+            if (isAdmin) {
+                return bookItem
+                    .append(
+                    $("<a>")
+                        .data("id", item.Id)
+                        .addClass("open-book-dialog")
+                        .prop("href", "javascript:void(0)")
+                        .html("<i class='fa fa-2x fa-edit'></i>")
+                    ).append(
+                    $("<a>")
+                        .data("id", item.Id)
+                        .addClass("delete-book-dialog")
+                        .prop("href", "javascript:void(0)")
+                        .html("<i class='fa fa-2x fa-trash'></i>")
+                    );
+            }
+            else {
+                return bookItem
+                    .append(
+                    $("<button>")
+                        .data("id", item.Id)
+                        .addClass("add-to-cart")
+                        .html("<i class='fa fa-2x fa-cart-plus' aria-hidden='true'></i>")
+                    );
+            }
+        }
+
+    function reLoadBooks() {
+        $.get("/api/books")
+            .then(responseData => {
+                $("#books-list").html("");
+                $("#books-list").append(responseData.map((i) => toBookItem(i)));
+            });
+    }
+
+    $(function () {
+        cartAPI.refresh();
+        $(document).on("click",".add-to-cart", addToCart)
+        reLoadBooks();
+    });
+</script>

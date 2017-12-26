@@ -1,0 +1,13 @@
+﻿@model Dictionary<string,string>
+@{
+    Layout = null;
+}
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@item.Value">@item.Key</a>
+        </li>
+    }
+</ul>
+

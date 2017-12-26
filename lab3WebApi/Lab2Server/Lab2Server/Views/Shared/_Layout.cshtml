@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="~/Scripts/user-cart/api-module.js"></script>
+    
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/app-styles.css" />
+    
+    <link rel="stylesheet" href="~/Content/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui.structure.min.css" />
+</head>
+<body>
+    @{ var itemsInCart = 0; }
+    <div class="header">
+        <div class="logo">
+            <a href="#">
+                <i class="fa fa-book" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="user-menu">
+            @{Html.RenderAction("Menu", "Home");}
+        </div>
+        @if (!Request.IsAuthenticated)
+        {
+            <div class="user-cart">
+                <a href="@Url.Action("Index","ShoppingCart")">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <label>@itemsInCart</label>
+                </a>
+            </div>
+        }
+        <div class="user-setting">
+            @if (Request.IsAuthenticated)
+            {
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span> | </span>
+                <label class="user-name">@Html.Encode(User.Identity.Name)</label>
+                <a href="@Url.Action("Logout", "Users")">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </a>
+            }
+            else
+            {
+                @*@Html.ActionLink("Register", "Register", "Users")*@
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span> | </span>
+                <a href="@Url.Action("Login", "Users")">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </a>
+            }
+        </div>
+    </div>
+    <script>
+        function stub() { };
+        function updateCartCounter(count) { $("div.user-cart label").text(count); };
+    </script>
+    <div class="main-container">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <p>books-sages project / © Andriy Badz / 2017</p>
+    </div>
+</body>
+</html>
